@@ -1,0 +1,81 @@
+/* Navbar container styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fc3132;
+    box-shadow: 0 2px 4px rgba(190, 40, 40, 0.1);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  
+  /* Logo styling */
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  .logo-image {
+    height: 50px;
+    width: auto;
+  }
+  
+  /* Navigation links container */
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    margin-right: 32cm;
+
+  }
+  
+  /* Navigation links styling */
+  .nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+  }
+  
+  .nav-link:hover {
+    color: #ffd700;
+  }
+  
+  /* Search and login container */
+  .search-login {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Search bar styling */
+  .search-bar {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .search-bar:focus {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Login link styling */
+  .login-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .login-link:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  

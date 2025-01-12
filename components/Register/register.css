@@ -1,0 +1,81 @@
+.register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  
+  .register-container {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 4, 0.3);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  .heading {
+    margin-bottom: 20px;
+    font-size: 3rem;
+    text-shadow: 2px 1px 5px white;
+    color: #fff;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .label {
+    font-size: 1rem;
+    text-align: left;
+    color: #ccc;
+  }
+  
+  .input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .button {
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-btn {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .submit-btn:hover {
+    background-color: #218838;
+  }
+  
+  .back-btn {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .back-btn:hover {
+    background-color: #c82333;
+  }
+  

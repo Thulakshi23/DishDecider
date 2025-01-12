@@ -1,0 +1,42 @@
+.footer {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fc3132;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer-logo .logo {
+    max-width: 50px;
+    height: auto;
+  }
+  
+  .footer-paragraph {
+    margin: 10px 0;
+    font-size: 14px;
+    color: white;
+  }
+  
+  .social-links {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .social-link {
+    margin: 0 10px;
+    display: inline-block;
+  }
+  
+  .social-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    transform: scale(1.1);
+  }
+  
