@@ -1,91 +1,75 @@
-"use client"; // Add this line at the top to mark it as a client component
+"use client"; // Ensure this component is treated as a client component
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './homePage.css'; // CSS import
 
 const HomePage: React.FC = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [showAdditionalIngredients, setShowAdditionalIngredients] = useState(false);
 
-  // Handle checkbox change
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
 
-    if (checked) {
-      setSelectedIngredients((prev) => [...prev, value]);
-    } else {
-      setSelectedIngredients((prev) => prev.filter((ingredient) => ingredient !== value));
-    }
+    setSelectedIngredients((prev) =>
+      checked ? [...prev, value] : prev.filter((ingredient) => ingredient !== value)
+    );
   };
 
-  // Clear the selected ingredients
   const clearIngredients = () => {
     setSelectedIngredients([]);
-    document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach((checkbox) => {
-      checkbox.checked = false;
-    });
   };
 
-  // Toggle additional ingredients
   const toggleAdditionalIngredients = () => {
     setShowAdditionalIngredients((prev) => !prev);
   };
+
+  useEffect(() => {
+    // Any necessary side effects or state updates can be handled here
+  }, [selectedIngredients]);
 
   return (
     <div id="home-page" className="home-page">
       <div className="container">
         {/* Ingredients Selection Section */}
         <div className="box">
-          <h2>What's in Your Fridge?</h2>
-          <button id="toggle-button" className="dropdown-btn" onClick={toggleAdditionalIngredients}>
+          <h2>
+            What's in Your Fridge? <span role="img" aria-label="thinking emoji">🤔</span>
+          </h2>
+          <button
+            id="toggle-button"
+            className="dropdown-btn"
+            onClick={toggleAdditionalIngredients}
+          >
             {showAdditionalIngredients ? 'Hide Ingredients' : 'Click Here for All Ingredients'}
           </button>
           <div className="ingredient-list">
             <div id="vegetables-section">
               <h3>Vegetables</h3>
               <ul>
-                <li>
-                  <input type="checkbox" value="Jackfruit" onChange={handleCheckboxChange} /> Jackfruit
-                </li>
-                <li>
-                  <input type="checkbox" value="Eggplant" onChange={handleCheckboxChange} /> Eggplant
-                </li>
-                <li>
-                  <input type="checkbox" value="Pumpkin" onChange={handleCheckboxChange} /> Pumpkin
-                </li>
-                <li>
-                  <input type="checkbox" value="Drumstick" onChange={handleCheckboxChange} /> Drumstick
-                </li>
-                <li>
-                  <input type="checkbox" value="Okra" onChange={handleCheckboxChange} /> Okra
-                </li>
+                {['Jackfruit', 'Eggplant', 'Pumpkin', 'Drumstick', 'Okra'].map((veg) => (
+                  <li key={veg}>
+                    <input type="checkbox" value={veg} onChange={handleCheckboxChange} /> {veg}
+                  </li>
+                ))}
               </ul>
             </div>
             {showAdditionalIngredients && (
               <div id="additional-sections">
                 <h3>Non-Vegetarian Dishes</h3>
                 <ul>
-                  <li>
-                    <input type="checkbox" value="Chicken" onChange={handleCheckboxChange} /> Chicken
-                  </li>
-                  <li>
-                    <input type="checkbox" value="Fish" onChange={handleCheckboxChange} /> Fish
-                  </li>
-                  <li>
-                    <input type="checkbox" value="Eggs" onChange={handleCheckboxChange} /> Eggs
-                  </li>
+                  {['Chicken', 'Fish', 'Eggs'].map((dish) => (
+                    <li key={dish}>
+                      <input type="checkbox" value={dish} onChange={handleCheckboxChange} /> {dish}
+                    </li>
+                  ))}
                 </ul>
                 <h3>Other Ingredients</h3>
                 <ul>
-                  <li>
-                    <input type="checkbox" value="Curry Leaves" onChange={handleCheckboxChange} /> Curry Leaves
-                  </li>
-                  <li>
-                    <input type="checkbox" value="Mustard Seeds" onChange={handleCheckboxChange} /> Mustard Seeds
-                  </li>
-                  <li>
-                    <input type="checkbox" value="Fenugreek Seeds" onChange={handleCheckboxChange} /> Fenugreek Seeds
-                  </li>
+                  {['Curry Leaves', 'Mustard Seeds', 'Fenugreek Seeds'].map((ingredient) => (
+                    <li key={ingredient}>
+                      <input type="checkbox" value={ingredient} onChange={handleCheckboxChange} /> {ingredient}
+                    </li>
+                  ))}
                 </ul>
               </div>
             )}
@@ -95,11 +79,15 @@ const HomePage: React.FC = () => {
         {/* Selected Ingredients Section */}
         <aside className="your-ingredients">
           <h2>Your Ingredients</h2>
-          <div className="ingredients-list">
+          <div className={`ingredients-list ${selectedIngredients.length === 0 ? 'empty' : ''}`}>
             <ul id="selected-ingredients">
-              {selectedIngredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
+              {selectedIngredients.length > 0 ? (
+                selectedIngredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))
+              ) : (
+                <li>No ingredients selected</li>
+              )}
             </ul>
           </div>
           <div className="button-container">

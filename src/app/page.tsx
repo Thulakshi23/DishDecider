@@ -2,13 +2,16 @@
 import Navbar from '../../components/Navbar/navbar';
 import Hero from '../../components/HomePage/homePage';  
 import Footer from '../../components/Footer/footer';
+// import User from '../../components/User/user';
 
 const HomePage = () => {
   return (
     <div>
       <Navbar />
       <Hero />
+      {/* <User /> */}
       <Footer />  
+
 
     </div>
   );

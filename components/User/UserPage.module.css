@@ -1,0 +1,43 @@
+.user-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-image: url('../../public/assets/Background2.jpg'); /* Replace with the correct image path */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Optional: Creates a parallax effect */
+    min-height: 100vh;
+    color: #333;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .tab-button {
+    background-color: #f5f5f5;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .tab-button.active {
+    background-color: #0070f3;
+    color: white;
+  }
+  
+  .tab-content {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8); /* Optional for better readability */
+    border-radius: 8px;
+  }
+  

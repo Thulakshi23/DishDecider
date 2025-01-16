@@ -1,98 +1,124 @@
 /* Background and page styling */
 .home-page {
-    background-image: url('/assets/pexels-adonyi-foto-1400172.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    padding: 20px;
-    color: black;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background-image: url('/assets/pexels-adonyi-foto-1400172.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding: 20px;
+  color: black;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
 
-  }
-  
-  /* Layout container */
+/* Layout container */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 5cm auto 0;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
   .container {
-    display: flex;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 5cm auto 0;
+      flex-direction: row;
   }
-  
-  /* Ingredient selection box */
-  .box {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    flex: 0.5;
-  }
-  
-  /* Your ingredients box */
-  .your-ingredients {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    flex: 0.5;
-    color: black;
-  }
-  
-  /* Buttons styling */
-  .dropdown-btn,
-  .find-recipes-btn,
-  .clear-btn {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .dropdown-btn {
-    background-color: #007bff;
-    color: white;
-    margin-bottom: 20px;
-  }
-  
-  .dropdown-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .find-recipes-btn {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .find-recipes-btn:hover {
-    background-color: #1e7e34;
-  }
-  
-  .clear-btn {
-    background-color: #dc3545;
-    color: rgb(245, 238, 238);
-  }
-  
-  .clear-btn:hover {
-    background-color: #c82333;
-  }
-  
-  /* Ingredient lists styling */
-  .ingredient-list ul {
-    list-style: none;
-    padding: 0;
-    color: black;
-  }
-  
-  .ingredient-list li {
-    margin: 10px 0;
-  }
-  
-  /* Button container */
+}
+
+/* Ingredient selection box */
+.box {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  flex: 0.5;
+}
+
+/* Your ingredients box */
+.your-ingredients {
+  background-color: rgba(240, 240, 240, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  flex: 0.5;
+}
+
+/* Styling for when no ingredients are selected */
+.ingredients-list.empty {
+  font-style: italic;
+  color: gray;
+  text-align: center;
+}
+
+/* Buttons styling */
+.dropdown-btn,
+.find-recipes-btn,
+.clear-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.dropdown-btn {
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.dropdown-btn:hover {
+  background-color: #0056b3;
+}
+
+.find-recipes-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.find-recipes-btn:hover {
+  background-color: #1e7e34;
+}
+
+.clear-btn {
+  background-color: #dc3545;
+  color: rgb(245, 238, 238);
+}
+
+.clear-btn:hover {
+  background-color: #c82333;
+}
+
+/* Ingredient lists styling */
+.ingredient-list ul {
+  list-style: none;
+  padding: 0;
+  color: black;
+}
+
+.ingredient-list li {
+  margin: 10px 0;
+}
+
+/* Button container */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Media query for responsive button layout */
+@media (max-width: 768px) {
   .button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+      flex-direction: column;
+      align-items: stretch;
   }
-  
+
+  .button-container button {
+      margin-bottom: 10px;
+      width: 100%;
+  }
+}
