@@ -1,5 +1,5 @@
 import { Schema, model, models, Document } from "mongoose";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 // Define User interface
@@ -9,6 +9,7 @@ interface IUser extends Document {
   email: string;
   password: string;
   generateAuthToken(): string; // JWT method
+  comparePassword(candidatePassword: string): Promise<boolean>; // Password comparison method
 }
 
 // Define User schema
@@ -30,13 +31,22 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// Compare password method
+userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
+
 // Generate JWT token
 userSchema.methods.generateAuthToken = function (): string {
-  const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET!, {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not defined");
+  }
+  const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: "1h", // Token validity
   });
   return token;
 };
 
+// Create and export User model
 const UserModel = models.User || model<IUser>("User", userSchema);
 export default UserModel;

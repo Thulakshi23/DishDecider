@@ -1,124 +1,107 @@
-"use client"; // Mark as a client component
-
-import React, { useState } from "react";
-import { useRouter } from "next/router";
-import apiClient from "@/utils/apiClient"; // Import the API client
-import "./register.css"; // Import the CSS file for styles
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
+import './register.css'; // Import the CSS file for styles
 
 const Register: React.FC = () => {
-  const router = useRouter(); // Use Next.js useRouter for navigation
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
-  };
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage("");
-    setIsLoading(true);
 
-    if (formData.password !== formData.confirmPassword) {
-      setMessage("Passwords do not match");
-      setIsLoading(false);
-      return;
-    }
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword,
+      }),
+    });
 
-    try {
-      await apiClient.post("/register", {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        password: formData.password,
-      });
-      setMessage("Registration successful!");
-      setTimeout(() => router.push("/login"), 1500); // Redirect to login after 1.5s
-    } catch (error: any) {
-      setMessage(error.response?.data?.message || "Something went wrong");
-    } finally {
-      setIsLoading(false);
+    const data = await response.json();
+
+    if (response.ok) {
+      // Show success toast notification
+      toast.success(data.message);
+      // Redirect to the login page after a delay
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000);
+    } else {
+      // Show error toast notification
+      toast.error(data.message);
     }
   };
 
   const handleBackToLogin = () => {
-    router.push("/login"); // Navigate to the login page
+    router.push('/login'); // Redirect to the login page
   };
 
   return (
     <div className="register-page">
+      <ToastContainer /> {/* Add ToastContainer to render the toasts */}
       <div className="register-container">
         <h2 className="heading">Register</h2>
         <form className="form" onSubmit={handleSubmit}>
-          <label htmlFor="firstName" className="label">
-            First Name
-          </label>
-          <input
-            type="text"
-            id="firstName"
-            className="input"
-            required
-            value={formData.firstName}
-            onChange={handleChange}
+          <label htmlFor="first-name" className="label">First Name</label>
+          <input 
+            type="text" 
+            id="first-name" 
+            className="input" 
+            required 
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)} 
           />
-          <label htmlFor="lastName" className="label">
-            Last Name
-          </label>
-          <input
-            type="text"
-            id="lastName"
-            className="input"
-            required
-            value={formData.lastName}
-            onChange={handleChange}
+          <label htmlFor="last-name" className="label">Last Name</label>
+          <input 
+            type="text" 
+            id="last-name" 
+            className="input" 
+            required 
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)} 
           />
-          <label htmlFor="email" className="label">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="input"
-            required
-            value={formData.email}
-            onChange={handleChange}
+          <label htmlFor="email" className="label">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            className="input" 
+            required 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} 
           />
-          <label htmlFor="password" className="label">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="input"
-            required
-            value={formData.password}
-            onChange={handleChange}
+          <label htmlFor="password" className="label">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            className="input" 
+            required 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} 
           />
-          <label htmlFor="confirmPassword" className="label">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            className="input"
-            required
-            value={formData.confirmPassword}
-            onChange={handleChange}
+          <label htmlFor="confirm-password" className="label">Confirm Password</label>
+          <input 
+            type="password" 
+            id="confirm-password" 
+            className="input" 
+            required 
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)} 
           />
           <div className="button-container">
-            <button type="submit" className="button submit-btn" disabled={isLoading}>
-              {isLoading ? "Registering..." : "Submit"}
+            <button type="submit" className="button submit-btn">
+              Submit
             </button>
             <button
               type="button"
@@ -129,7 +112,6 @@ const Register: React.FC = () => {
             </button>
           </div>
         </form>
-        {message && <p className="message">{message}</p>}
       </div>
     </div>
   );

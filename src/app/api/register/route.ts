@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dbConnect from '../../../config/db';
 import userModel from '../models/User';// Load environment variables
+import Crud from "";
+
+
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret_key';// Route for user registration
 export async function POST(req: NextRequest) {
   const { firstName, lastName, email, password, confirmPassword } = await req.json();  try {
@@ -15,12 +17,12 @@ export async function POST(req: NextRequest) {
     if (password !== confirmPassword) {
       return NextResponse.json({ message: 'Passwords do not match' }, { status: 400 });
     }    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);    // Create a new user instance
+
     const newUser = new userModel({
       firstName,
       lastName,
       email,
-      password: hashedPassword,
+      password,
       confirmPassword, // Add confirmPassword here
     });    // Save the new user to the database
     await newUser.save();    // Generate a JWT token
@@ -30,7 +32,7 @@ export async function POST(req: NextRequest) {
       { expiresIn: '1h' } // Token expiration (1 hour)
     );    // Send success response with the token
     return NextResponse.json(
-      { message: 'User registered successfully', token },
+      { message: 'User registered successfully', token, newUser },
       { status: 201 }
     );
   } catch (error) {

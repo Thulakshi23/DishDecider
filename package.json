@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
     "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -20,6 +22,7 @@
     "next": "15.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-toastify": "^11.0.3",
     "typed.js": "^2.1.0"
   },
   "devDependencies": {
