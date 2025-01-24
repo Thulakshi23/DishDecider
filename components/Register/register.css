@@ -82,3 +82,19 @@
     background-color: #c82333;
   }
   
+  .password-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .toggle-visibility {
+    cursor: pointer;
+    margin-left: -30px;
+    color: gray;
+  }
+  
+  .toggle-visibility:hover {
+    color: black;
+  }
+  

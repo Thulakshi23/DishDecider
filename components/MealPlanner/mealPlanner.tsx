@@ -8,6 +8,7 @@ import img4 from '../../public/assets/pexels-catscoming-674574.jpg';
 import img5 from '../../public/assets/pexels-catscoming-674574.jpg';
 import backgroundImage from '../../public/assets/pexels-enginakyurt-1435904.jpg'; // Import background image
 import './mealPlanner.css'; // Import the CSS file
+import { motion } from 'framer-motion'; // Import Framer Motion components
 
 const MealPlanner: React.FC = () => {
   const mealImages = [img1, img2, img3, img4, img5];
@@ -51,12 +52,29 @@ const MealPlanner: React.FC = () => {
       className="mealPlanner"
       style={{ backgroundImage: `url(${backgroundImage.src})` }} // Inline style for background image
     >
-      <h1>Weekly Meal Planner</h1>
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }} // Initial state for animation
+        animate={{ opacity: 1, y: 0 }} // Animate to this state
+        transition={{ duration: 0.5 }} // Transition duration
+      >
+        Weekly Meal Planner
+      </motion.h1>
       <div className="main-section">
         {/* Left Panel */}
-        <div className="left-panel">
+        <motion.div
+          className="left-panel"
+          initial={{ opacity: 0, x: -50 }} // Initial state for animation
+          animate={{ opacity: 1, x: 0 }} // Animate to this state
+          transition={{ duration: 0.5 }} // Transition duration
+        >
           {Object.keys(selectedMeals).map((day) => (
-            <div key={day} className="day-section">
+            <motion.div
+              key={day}
+              className="day-section"
+              initial={{ opacity: 0 }} // Initial state for animation
+              animate={{ opacity: 1 }} // Animate to this state
+              transition={{ duration: 0.5 }} // Transition duration
+            >
               <h2>{day}</h2>
               <div className="grid-container">
                 {mealImages.map((image, index) => (
@@ -65,19 +83,27 @@ const MealPlanner: React.FC = () => {
                     key={index}
                     onClick={() => handleMealClick(day, index)}
                   >
-                    <img
+                    <motion.img
                       src={image.src}
                       alt={`Meal ${index + 1}`}
                       className={`meal-image ${selectedMeals[day].includes(index) ? 'selected' : ''}`}
+                      initial={{ scale: 1 }} // Initial scale for image
+                      whileHover={{ scale: 1.05 }} // Scale effect on hover
+                      transition={{ duration: 0.2 }} // Transition duration for hover effect
                     />
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
         {/* Right Panel */}
-        <div className="right-panel">
+        <motion.div
+          className="right-panel"
+          initial={{ opacity: 0, x: 50 }} // Initial state for animation
+          animate={{ opacity: 1, x: 0 }} // Animate to this state
+          transition={{ duration: 0.5 }} // Transition duration
+        >
           <div className="preview-box">
             <h3>Selected Meals</h3>
             <ul>
@@ -92,14 +118,24 @@ const MealPlanner: React.FC = () => {
             </ul>
           </div>
           <div className="button-group">
-            <button className="cancel-btn" onClick={handleCancel}>
+            <motion.button
+              className="cancel-btn"
+              onClick={handleCancel}
+              whileHover={{ scale: 1.05 }} // Scale effect on hover
+              whileTap={{ scale: 0.95 }} // Scale effect on tap
+            >
               Clear Selection
-            </button>
-            <button className="save-btn" onClick={handleSave}>
+            </motion.button>
+            <motion.button
+              className="save-btn"
+              onClick={handleSave}
+              whileHover={{ scale: 1.05 }} // Scale effect on hover
+              whileTap={{ scale: 0.95 }} // Scale effect on tap
+            >
               Save Meals
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

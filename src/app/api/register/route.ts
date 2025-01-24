@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from 'jsonwebtoken';
 import dbConnect from '../../../config/db';
 import userModel from '../models/User';// Load environment variables
-import Crud from "";
 
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret_key';// Route for user registration
@@ -41,4 +40,5 @@ export async function POST(req: NextRequest) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({ message: 'Something went wrong', error: errorMessage }, { status: 500 });
   }
+  
 }

@@ -1,6 +1,7 @@
 "use client"; // Ensure this component is treated as a client component
 
 import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion'; // Import Framer Motion components
 import './homePage.css'; // CSS import
 
 const HomePage: React.FC = () => {
@@ -31,7 +32,13 @@ const HomePage: React.FC = () => {
     <div id="home-page" className="home-page">
       <div className="container">
         {/* Ingredients Selection Section */}
-        <div className="box">
+        <motion.div
+          className="box"
+          initial={{ opacity: 0 }} // Initial state
+          animate={{ opacity: 1 }} // Animate to this state
+          exit={{ opacity: 0 }} // Exit animation
+          transition={{ duration: 0.5 }} // Transition duration
+        >
           <h2>
             What's in Your Fridge? <span role="img" aria-label="thinking emoji">🤔</span>
           </h2>
@@ -42,19 +49,16 @@ const HomePage: React.FC = () => {
           >
             {showAdditionalIngredients ? 'Hide Ingredients' : 'Click Here for All Ingredients'}
           </button>
-          <div className="ingredient-list">
-            <div id="vegetables-section">
-              <h3>Vegetables</h3>
-              <ul>
-                {['Jackfruit', 'Eggplant', 'Pumpkin', 'Drumstick', 'Okra'].map((veg) => (
-                  <li key={veg}>
-                    <input type="checkbox" value={veg} onChange={handleCheckboxChange} /> {veg}
-                  </li>
-                ))}
-              </ul>
-            </div>
+
+          <AnimatePresence>
             {showAdditionalIngredients && (
-              <div id="additional-sections">
+              <motion.div
+                id="additional-sections"
+                initial={{ height: 0, opacity: 0 }} // Initial state for animation
+                animate={{ height: "auto", opacity: 1 }} // Animate to this state
+                exit={{ height: 0, opacity: 0 }} // Exit animation
+                transition={{ duration: 0.5 }} // Transition duration
+              >
                 <h3>Non-Vegetarian Dishes</h3>
                 <ul>
                   {['Chicken', 'Fish', 'Eggs'].map((dish) => (
@@ -71,10 +75,23 @@ const HomePage: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             )}
+          </AnimatePresence>
+
+          <div className="ingredient-list">
+            <div id="vegetables-section">
+              <h3>Vegetables</h3>
+              <ul>
+                {['Jackfruit', 'Eggplant', 'Pumpkin', 'Drumstick', 'Okra'].map((veg) => (
+                  <li key={veg}>
+                    <input type="checkbox" value={veg} onChange={handleCheckboxChange} /> {veg}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Selected Ingredients Section */}
         <aside className="your-ingredients">
@@ -83,7 +100,9 @@ const HomePage: React.FC = () => {
             <ul id="selected-ingredients">
               {selectedIngredients.length > 0 ? (
                 selectedIngredients.map((ingredient, index) => (
-                  <li key={index}>{ingredient}</li>
+                  <motion.li key={index} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                    {ingredient}
+                  </motion.li>
                 ))
               ) : (
                 <li>No ingredients selected</li>

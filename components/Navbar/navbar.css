@@ -1,70 +1,68 @@
 /* Navbar container styling */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #fc3132;
-    box-shadow: 0 2px 4px rgba(190, 40, 40, 0.1);
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  }
-  
-  /* Logo styling */
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  .logo-image {
-    height: 50px;
-    width: auto;
-  }
-  
-  /* Navigation links container */
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    padding: 0;
-    margin-right: 30cm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fc3132;
+  box-shadow: 0 2px 4px rgba(190, 40, 40, 0.1);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
 
-  }
-  
-  /* Navigation links styling */
-  .nav-link {
-    text-decoration: none;
-    color: white;
-    font-weight: 500;
-    transition: color 0.3s ease;
+/* Logo styling */
+.logo {
+  display: flex;
+  align-items: center;
+}
 
-  }
-  
-  .nav-link:hover {
-    color: #ffd700;
-  }
-  
-  /* Search and login container */
-  .search-login {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  /* Search bar styling */
-  .search-bar {
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    outline: none;
-    font-size: 14px;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .search-bar:focus {
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  
-  /* Login link styling */
- /* Login link styling */
+.logo-image {
+  height: 50px;
+  width: auto;
+}
+
+/* Navigation links container */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  padding: 0;
+  margin-right: 30cm;
+}
+
+/* Navigation links styling */
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffd700;
+}
+
+/* Search and login/profile container */
+.search-login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Search bar styling */
+.search-bar {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  transition: box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Login link styling */
 .login-link {
   text-decoration: none;
   color: #333; /* Darker text color for contrast */
@@ -82,4 +80,81 @@
   transform: scale(1.05); /* Subtle scaling effect for interactivity */
 }
 
-  
+/* Profile container styling (for logged-in users) */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Profile icon styling */
+.profile-icon {
+  width: 30px; /* Width for the icon */
+  height: 30px; /* Height for the icon */
+  border-radius: 50%; /* Circle shape */
+  background-color: #007bff; /* Customize background color */
+  color: white; /* Text color for the initial */
+  display: flex; /* Flexbox for centering */
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  font-size: 1rem; /* Adjust size for visibility */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.profile-icon:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Logout button styling */
+.logout-btn {
+  background-color: #dc3545; /* Red color for the logout button */
+  color: white;
+  font-weight: 500;
+  padding: 8px 20px; /* Increase padding for clickability */
+  border: none;
+  border-radius: 25px; /* Slightly rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #b21f2d; /* Darker red on hover */
+  transform: scale(1.05); /* Subtle scaling effect for interactivity */
+}
+
+/* Profile container styling (for logged-in users) */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Profile icon hover effect (if you want to change it) */
+.profile-icon:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Add these styles to ensure profile icon looks good */
+.profile-icon {
+  width: 40px; /* Increase width for better visibility */
+  height: 40px; /* Increase height for better visibility */
+  border-radius: 50%; /* Circle shape */
+  background-color: #007bff; /* Customize background color */
+  color: white; /* Text color for the initial */
+  display: flex; /* Flexbox for centering */
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  font-size: 1.2rem; /* Adjust size for visibility */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+/* Style for the profile container */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
