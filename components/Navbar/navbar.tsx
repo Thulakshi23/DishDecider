@@ -1,27 +1,26 @@
-"use client"; // Add this line at the top to mark the component as a client component
+"use client"; // Ensure this component is a client component
 
 import Link from 'next/link';
 import Image from 'next/image';
 import './navbar.css'; // Import the CSS file
-import logo from '../../public/assets/IMG-20250105-WA0089(1).jpg'; // Ensure the logo path is correct
+import logo from '../../public/assets/IMG-20250105-WA0089(1).jpg'; // Correct logo path
 import React, { useState } from 'react'; // Import useState for state management
 
 const Navbar: React.FC = () => {
   // State to manage login status and username
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Example state for login status
   const [username, setUsername] = useState(''); // State for storing the username
 
   // Function to simulate login (replace this with your actual login logic)
-  const handleLogin = () => {
-    const fakeUserName = 'John Doe'; // This would come from your actual login response
-    setUsername(fakeUserName);
-    setIsLoggedIn(true);
+  const handleLogin = (userName: string) => {
+    setUsername(userName); // Set username from login input
+    setIsLoggedIn(true); // Set login status to true
   };
 
   // Function to handle logout
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUsername('');
+    setIsLoggedIn(false); // Reset login status
+    setUsername(''); // Clear the username
   };
 
   return (
@@ -49,7 +48,7 @@ const Navbar: React.FC = () => {
             <div className="profile-icon">{username.charAt(0).toUpperCase()}</div> {/* Display first letter of the username */}
           </div>
         ) : (
-          <Link href="/login" className="login-link" onClick={handleLogin}>Login</Link>
+          <Link href="/login" className="login-link" onClick={() => handleLogin(prompt("Enter your name:") || "")}>Login</Link>
         )}
       </div>
     </div>

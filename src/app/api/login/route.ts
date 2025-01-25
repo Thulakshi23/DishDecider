@@ -24,10 +24,25 @@ export const POST = async (req: NextRequest) => {
     }
 
     // Generate an authentication token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'your_secret_key', { expiresIn: '1h' });
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET || 'your_secret_key',
+      { expiresIn: '1h' }
+    );
 
     // Return the user information and token as the response
-    return NextResponse.json({ user: { email: user.email, id: user._id }, token }, { status: 200 });
+    return NextResponse.json(
+      {
+        user: {
+          email: user.email,
+          id: user._id,
+          firstname: user.firstname, // Add firstname
+          lastname: user.lastname,   // Add lastname
+        },
+        token,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error(error); // Log the error for debugging
     return NextResponse.json({ message: "Internal server error" }, { status: 500 });

@@ -1,18 +1,16 @@
-// app/page.tsx (or pages/page.tsx if using Pages Router)
+// src/app/page.tsx
 import Navbar from '../../components/Navbar/navbar';
-import Hero from '../../components/HomePage/homePage';  
+import Hero from '../../components/HomePage/homePage';
 import Footer from '../../components/Footer/footer';
-// import User from '../../components/User/user';
+import ImageUploader from '../../components/Imagge/ImageUploader'; // Import the ImageUploader component
 
 const HomePage = () => {
   return (
     <div>
       <Navbar />
       <Hero />
-      {/* <User /> */}
-      <Footer />  
-
-
+      <ImageUploader /> {/* Add the ImageUploader component here */}
+      <Footer />
     </div>
   );
 };

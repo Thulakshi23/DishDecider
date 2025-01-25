@@ -1,5 +1,4 @@
 import React from 'react';
-import backgroundImage from '../../public/assets/Backround3.jpg'; // Adjust the path as necessary
 import { motion } from 'framer-motion'; // Import Framer Motion components
 import './contact.css';
 
@@ -8,7 +7,12 @@ const ContactUs: React.FC = () => {
     <div
       id="contact-us-page"
       className="contact-us-page"
-      style={{ backgroundImage: `url(${backgroundImage.src})` }} // Use .src for Next.js image import
+      style={{ 
+        backgroundImage: `url('https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622733/Backround3_m2rxq9.jpg')`, // Cloudinary image URL
+        backgroundSize: 'cover', // Ensure the image covers the entire background
+        backgroundPosition: 'center', // Center the background image
+        minHeight: '100vh', // Set minimum height to cover the viewport
+      }}
     >
       <div className="contact-box">
         <motion.h1

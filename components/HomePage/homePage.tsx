@@ -42,55 +42,103 @@ const HomePage: React.FC = () => {
           <h2>
             What's in Your Fridge? <span role="img" aria-label="thinking emoji">🤔</span>
           </h2>
+          
+          {/* Button to show/hide additional ingredients */}
           <button
             id="toggle-button"
             className="dropdown-btn"
             onClick={toggleAdditionalIngredients}
           >
-            {showAdditionalIngredients ? 'Hide Ingredients' : 'Click Here for All Ingredients'}
+            {showAdditionalIngredients ? 'Hide Other Ingredients' : 'Show Other Ingredients'}
           </button>
 
+          {/* Fresh Vegetables Section */}
+          <div id="vegetables-section">
+            <h3>Fresh Vegetables</h3>
+            <ul className="ingredient-grid">
+              {['Jackfruit', 
+                  'Eggplant', 
+                  'Pumpkin', 
+                  'Drumstick', 
+                  'Okra', 
+                  'Carrots', 
+                  'Beetroots', 
+                  'Spinach', 
+                  'Broccoli', 
+                  'Zucchini', 
+                  'Tomatoes', 
+                  'Cucumbers', 
+                  'Onions', 
+                  'Garlic', 
+                  'Mushrooms'].map((veg) => (
+                <li key={veg}>
+                  <input type="checkbox" value={veg} onChange={handleCheckboxChange} /> {veg}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Show additional ingredients when the button is clicked */}
           <AnimatePresence>
             {showAdditionalIngredients && (
               <motion.div
-                id="additional-sections"
-                initial={{ height: 0, opacity: 0 }} // Initial state for animation
-                animate={{ height: "auto", opacity: 1 }} // Animate to this state
-                exit={{ height: 0, opacity: 0 }} // Exit animation
+                initial={{ opacity: 0 }} // Initial state for additional ingredients
+                animate={{ opacity: 1 }} // Animate to this state
+                exit={{ opacity: 0 }} // Exit animation
                 transition={{ duration: 0.5 }} // Transition duration
               >
-                <h3>Non-Vegetarian Dishes</h3>
-                <ul>
-                  {['Chicken', 'Fish', 'Eggs'].map((dish) => (
-                    <li key={dish}>
-                      <input type="checkbox" value={dish} onChange={handleCheckboxChange} /> {dish}
-                    </li>
-                  ))}
-                </ul>
-                <h3>Other Ingredients</h3>
-                <ul>
-                  {['Curry Leaves', 'Mustard Seeds', 'Fenugreek Seeds'].map((ingredient) => (
-                    <li key={ingredient}>
-                      <input type="checkbox" value={ingredient} onChange={handleCheckboxChange} /> {ingredient}
-                    </li>
-                  ))}
-                </ul>
+                {/* Fresh Fruits Section */}
+                <div id="fruits-section">
+                  <h3>Fresh Fruits</h3>
+                  <ul className="ingredient-grid">
+                    {['Apples', 
+                        'Bananas', 
+                        'Oranges', 
+                        'Grapes', 
+                        'Pineapples', 
+                        'Mangoes', 
+                        'Strawberries', 
+                        'Blueberries', 
+                        'Peaches', 
+                        'Pears', 
+                        'Kiwis', 
+                        'Lemons', 
+                        'Limes', 
+                        'Cherries', 
+                        'Watermelons'].map((fruit) => (
+                      <li key={fruit}>
+                        <input type="checkbox" value={fruit} onChange={handleCheckboxChange} /> {fruit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Non-Vegetarian Dishes Section */}
+                <div id="non-veg-section">
+                  <h3>Non-Vegetarian Dishes</h3>
+                  <ul className="ingredient-grid">
+                    {['Chicken', 'Fish', 'Eggs'].map((dish) => (
+                      <li key={dish}>
+                        <input type="checkbox" value={dish} onChange={handleCheckboxChange} /> {dish}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Dairy Products Section */}
+                <div id="dairy-section">
+                  <h3>Dairy Products</h3>
+                  <ul className="ingredient-grid">
+                    {['Milk', 'Cheese', 'Yogurt', 'Butter', ].map((dairy) => (
+                      <li key={dairy}>
+                        <input type="checkbox" value={dairy} onChange={handleCheckboxChange} /> {dairy}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
-
-          <div className="ingredient-list">
-            <div id="vegetables-section">
-              <h3>Vegetables</h3>
-              <ul>
-                {['Jackfruit', 'Eggplant', 'Pumpkin', 'Drumstick', 'Okra'].map((veg) => (
-                  <li key={veg}>
-                    <input type="checkbox" value={veg} onChange={handleCheckboxChange} /> {veg}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
         </motion.div>
 
         {/* Selected Ingredients Section */}

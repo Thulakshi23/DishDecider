@@ -35,10 +35,17 @@ const Login: React.FC = () => {
     console.log('Response:', response); // Log response for debugging
 
     if (response.ok) {
+      const data = await response.json(); // Parse the response to get user info
+      const username = data.username || 'User'; // Replace with the actual key from your API response
+      
+      // Store username in localStorage for persistent login
+      localStorage.setItem('username', username);
+
       toast.success('Login successful!'); // Display success toast
+
       // Delay redirect to allow toast to display
       setTimeout(() => {
-        router.push('/'); // Redirect to home page
+        router.push('/'); // Redirect to the home page
       }, 2000); // Adjust the time (2000 ms = 2 seconds)
     } else {
       const error = await response.json(); // Parse error response

@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./register.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion"; // Import motion
+import { motion } from "framer-motion";
 
 const Register: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -59,10 +59,13 @@ const Register: React.FC = () => {
 
     if (response.ok) {
       toast.success(data.message);
-      // Redirect to the home page after successful registration
+      // Save username to localStorage (optional)
+      localStorage.setItem("username", firstName);
+
+      // Redirect to login page after successful registration
       setTimeout(() => {
-        router.push("/"); // Redirect to the home page
-      }, 2000); // Optional: delay before redirecting
+        router.push("/login");
+      }, 2000);
     } else {
       toast.error(data.message);
     }
@@ -75,10 +78,10 @@ const Register: React.FC = () => {
   return (
     <motion.div
       className="register-page"
-      initial={{ opacity: 0, y: -50 }} // Initial state
-      animate={{ opacity: 1, y: 0 }} // Animation to apply
-      exit={{ opacity: 0, y: 50 }} // Exit animation
-      transition={{ duration: 0.5 }} // Transition duration
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
+      transition={{ duration: 0.5 }}
     >
       <ToastContainer />
       <div className="register-container">
@@ -151,22 +154,17 @@ const Register: React.FC = () => {
             <FontAwesomeIcon
               icon={confirmPasswordVisible ? faEye : faEyeSlash}
               className="toggle-visibility"
-              onClick={() =>
-                setConfirmPasswordVisible(!confirmPasswordVisible)
-              }
+              onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
             />
           </div>
-          <div className="button-container">
-            <button type="submit" className="button submit-btn">Submit</button>
-            <button
-              type="button"
-              className="button back-btn"
-              onClick={handleBackToLogin}
-            >
-              Back to Login
-            </button>
-          </div>
+          <button type="submit" className="button">Register</button>
         </form>
+        <p className="login-prompt">
+          Already have an account?{" "}
+          <span className="back-to-login" onClick={handleBackToLogin}>
+            Back to Login
+          </span>
+        </p>
       </div>
     </motion.div>
   );

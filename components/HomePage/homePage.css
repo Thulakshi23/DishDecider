@@ -1,14 +1,16 @@
+/* homePage.css */
+
 /* Background and page styling */
-.home-page {
-  background-image: url('/assets/pexels-adonyi-foto-1400172.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  padding: 20px;
-  color: black;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+#home-page { /* Use only the ID selector to avoid confusion */
+  background-image: url('https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622732/pexels-adonyi-foto-1400172_cipkpx.jpg'); /* Cloudinary image URL */
+  background-size: cover; /* Ensure the image covers the entire background */
+  background-position: center; /* Center the background image */
+  background-attachment: fixed; /* Keep the background fixed during scroll */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  min-height: 100vh; /* Set a minimum height to cover the viewport */
+  padding: 20px; /* Add some padding for spacing */
+  color: black; /* Text color */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; /* Font family */
 }
 
 /* Layout container */
@@ -23,7 +25,7 @@
 /* Media query for larger screens */
 @media (min-width: 768px) {
   .container {
-      flex-direction: row;
+    flex-direction: row;
   }
 }
 
@@ -103,6 +105,25 @@
   margin: 10px 0;
 }
 
+/* Grid layout for ingredients */
+.ingredient-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 10px; /* Space between grid items */
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+}
+
+.ingredient-grid li {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  background: #f9f9f9; /* Light background for the items */
+  padding: 10px; /* Padding for each item */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ddd; /* Light border */
+  height: 0.8cm; /* Set height for each ingredient box */
+}
+
 /* Button container */
 .button-container {
   display: flex;
@@ -113,12 +134,34 @@
 /* Media query for responsive button layout */
 @media (max-width: 768px) {
   .button-container {
-      flex-direction: column;
-      align-items: stretch;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .button-container button {
-      margin-bottom: 10px;
-      width: 100%;
+    margin-bottom: 10px;
+    width: 100%;
   }
+}
+
+/* Additional styling for headings */
+h2 {
+  font-size: 2rem; /* Adjust main heading size */
+  margin-bottom: 10px; /* Space below the heading */
+}
+
+h3 {
+  font-size: 1.5rem; /* Adjust subheading size */
+  margin: 20px 0 10px; /* Space around subheadings */
+}
+
+/* Style for the checkbox */
+.ingredient-grid input[type="checkbox"] {
+  margin-right: 10px; /* Space between checkbox and label */
+}
+
+/* Style for the ingredient labels */
+.ingredient-grid label {
+  font-size: 0.9rem; /* Smaller font size for labels */
+  line-height: 1.2; /* Adjust line height for better spacing */
 }

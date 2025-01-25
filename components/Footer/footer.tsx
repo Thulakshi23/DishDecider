@@ -5,7 +5,11 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-logo">
-        <img src="/assets/IMG-20250105-WA0089(1).jpg" alt="Dish Decider Logo" className="logo" />
+        <img
+          src="https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622733/IMG-20250105-WA0089_1_g60v3l.jpg" // Replace with your Cloudinary logo URL
+          alt="Dish Decider Logo"
+          className="logo"
+        />
       </div>
       <p className="footer-paragraph">© 2024 DishDecider.com</p>
       <div className="social-links">
@@ -17,7 +21,7 @@ const Footer = () => {
           className="social-link"
         >
           <img
-            src="/assets/fb.jpg"
+            src="https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622733/fb_fwfnd8.jpg" // Replace with your Cloudinary Facebook icon URL
             alt="Facebook"
             className="social-icon"
           />
@@ -30,7 +34,7 @@ const Footer = () => {
           className="social-link"
         >
           <img
-            src="/assets/insta.png"
+            src="https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622733/insta_ey66qt.png" // Replace with your Cloudinary Instagram icon URL
             alt="Instagram"
             className="social-icon"
           />

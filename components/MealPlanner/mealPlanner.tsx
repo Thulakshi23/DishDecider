@@ -1,17 +1,23 @@
 "use client"; // Add this line at the top to mark it as a client component
 
 import React, { useState } from 'react';
-import img1 from '../../public/assets/pexels-catscoming-674574.jpg';
-import img2 from '../../public/assets/pexels-adonyi-foto-1414651.jpg';
-import img3 from '../../public/assets/pexels-catscoming-674574.jpg';
-import img4 from '../../public/assets/pexels-catscoming-674574.jpg';
-import img5 from '../../public/assets/pexels-catscoming-674574.jpg';
-import backgroundImage from '../../public/assets/pexels-enginakyurt-1435904.jpg'; // Import background image
+// Remove local imports for images
+// import backgroundImage from '../../public/assets/Background2.jpg'; // No longer needed
 import './mealPlanner.css'; // Import the CSS file
-import { motion } from 'framer-motion'; // Import Framer Motion components
 
 const MealPlanner: React.FC = () => {
-  const mealImages = [img1, img2, img3, img4, img5];
+  // Replace local images with Cloudinary URLs
+  const mealImages = [
+    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622732/pexels-catscoming-674574_fhricj.jpg", // Replace with your Cloudinary URLs
+    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622732/pexels-catscoming-674574_fhricj.jpg",
+    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622731/pexels-fotios-photos-1358389_tvzxdm.jpg",
+    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622732/pexels-alesiakozik-6544243_ird6qq.jpg",
+    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622731/pexels-fotios-photos-1358389_tvzxdm.jpg",
+  ];
+
+  // Add your Cloudinary background image URL
+  const backgroundImageUrl = "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737558632/samples/food/fish-vegetables.jpg"; // Replace with your Cloudinary background image URL
+
   const [selectedMeals, setSelectedMeals] = useState<{ [key: string]: number[] }>({
     Monday: [],
     Tuesday: [],
@@ -50,31 +56,14 @@ const MealPlanner: React.FC = () => {
   return (
     <div
       className="mealPlanner"
-      style={{ backgroundImage: `url(${backgroundImage.src})` }} // Inline style for background image
+      style={{ backgroundImage: `url(${backgroundImageUrl})`, backgroundSize: 'cover' }} // Inline style for Cloudinary background image
     >
-      <motion.h1
-        initial={{ opacity: 0, y: -50 }} // Initial state for animation
-        animate={{ opacity: 1, y: 0 }} // Animate to this state
-        transition={{ duration: 0.5 }} // Transition duration
-      >
-        Weekly Meal Planner
-      </motion.h1>
+      <h1>Weekly Meal Planner</h1>
       <div className="main-section">
         {/* Left Panel */}
-        <motion.div
-          className="left-panel"
-          initial={{ opacity: 0, x: -50 }} // Initial state for animation
-          animate={{ opacity: 1, x: 0 }} // Animate to this state
-          transition={{ duration: 0.5 }} // Transition duration
-        >
+        <div className="left-panel">
           {Object.keys(selectedMeals).map((day) => (
-            <motion.div
-              key={day}
-              className="day-section"
-              initial={{ opacity: 0 }} // Initial state for animation
-              animate={{ opacity: 1 }} // Animate to this state
-              transition={{ duration: 0.5 }} // Transition duration
-            >
+            <div key={day} className="day-section">
               <h2>{day}</h2>
               <div className="grid-container">
                 {mealImages.map((image, index) => (
@@ -83,27 +72,19 @@ const MealPlanner: React.FC = () => {
                     key={index}
                     onClick={() => handleMealClick(day, index)}
                   >
-                    <motion.img
-                      src={image.src}
+                    <img
+                      src={image}
                       alt={`Meal ${index + 1}`}
                       className={`meal-image ${selectedMeals[day].includes(index) ? 'selected' : ''}`}
-                      initial={{ scale: 1 }} // Initial scale for image
-                      whileHover={{ scale: 1.05 }} // Scale effect on hover
-                      transition={{ duration: 0.2 }} // Transition duration for hover effect
                     />
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
         {/* Right Panel */}
-        <motion.div
-          className="right-panel"
-          initial={{ opacity: 0, x: 50 }} // Initial state for animation
-          animate={{ opacity: 1, x: 0 }} // Animate to this state
-          transition={{ duration: 0.5 }} // Transition duration
-        >
+        <div className="right-panel">
           <div className="preview-box">
             <h3>Selected Meals</h3>
             <ul>
@@ -118,24 +99,14 @@ const MealPlanner: React.FC = () => {
             </ul>
           </div>
           <div className="button-group">
-            <motion.button
-              className="cancel-btn"
-              onClick={handleCancel}
-              whileHover={{ scale: 1.05 }} // Scale effect on hover
-              whileTap={{ scale: 0.95 }} // Scale effect on tap
-            >
+            <button className="cancel-btn" onClick={handleCancel}>
               Clear Selection
-            </motion.button>
-            <motion.button
-              className="save-btn"
-              onClick={handleSave}
-              whileHover={{ scale: 1.05 }} // Scale effect on hover
-              whileTap={{ scale: 0.95 }} // Scale effect on tap
-            >
+            </button>
+            <button className="save-btn" onClick={handleSave}>
               Save Meals
-            </motion.button>
+            </button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
