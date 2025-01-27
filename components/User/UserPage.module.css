@@ -1,5 +1,5 @@
 .user-page {
-  font-family: Arial, sans-serif;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   padding: 20px;
   background-image: url('../../public/assets/Background2.jpg'); /* Replace with the correct image path */
   background-size: cover;
@@ -18,22 +18,21 @@
 }
 
 .user-info img {
-  width: 80px;
-  height: 80px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
-  border: 2px solid #0070f3; /* Added styled border */
-  background-color: #f5f5f5; /* Fallback background color */
+  border: 5px solid black; /* Added styled border */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem; /* Font size for initials */
   font-weight: bold;
-  color: #0070f3; /* Color for initials */
+  color: black; /* Color for initials */
   object-fit: cover; /* Ensures the image fits nicely */
 }
 
 .user-info h3 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 
 .tabs {
@@ -108,20 +107,6 @@
   border-radius: 5px;
 }
 
-.settings-form button {
-  background-color: #0070f3; /* Primary button color */
-  color: white;
-  font-weight: bold;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth transition */
-}
-
-.settings-form button:hover {
-  background-color: #0056b3; /* Darker shade for hover effect */
-}
 
 .logout-button {
   margin-top: 20px; /* Added spacing for the logout button */
@@ -202,3 +187,193 @@
 .delete-popup {
   position: relative;
 }
+
+/* UserPage.module.css */
+
+.profile-placeholder {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  border-radius: 50%;
+  background-color: white; /* White background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px; /* Adjust font size as needed */
+  color: #333; /* Text color */
+  font-weight: bold; /* Optional: Make text bold */
+}
+
+
+/* Main container for settings content */
+.settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  background-color: #ffffff; /* Set background color to white */
+  padding: 20px;
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Full width */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.settings-content:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+/* Heading style */
+.settings-content h3 {
+  color: #0070f3; /* Heading color */
+  margin: 0 0 10px; /* Spacing below the heading */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow for depth */
+}
+
+/* Form styles */
+.settings-form {
+  background: linear-gradient(to bottom right, #f0f8ff, #e6f7ff); /* Soft gradient */
+  padding: 15px;
+  border-radius: 8px; /* Rounded corners for the form */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Light shadow for the form */
+}
+
+/* Input field styles */
+.settings-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease; /* Smooth border color transition */
+}
+
+.settings-form input:focus {
+  border-color: #0070f3; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+/* Button styles */
+.settings-form button {
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+.save-button{
+  background-color: #0070f3; /* Save button color */
+  transform: translateY(-2px); /* Slight lift on hover */
+
+}
+
+/* Logout button styles */
+.logout-button {
+  margin-top: 20px; /* Spacing for the logout button */
+  background-color: #f44336; /* Logout button color */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+.logout-button:hover {
+  background-color: #d32f2f; /* Darker shade on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* New styles for user page enhancements */
+
+/* General button hover effects */
+button:hover {
+  transform: scale(1.05); /* Slightly enlarge buttons on hover */
+}
+
+/* Additional styling for the user-info section */
+.user-info {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5); /* Underline effect */
+  padding-bottom: 15px; /* Space below the user-info section */
+}
+
+/* Tab button hover effects */
+.tab-button:hover {
+  background-color: #eaeaea; /* Light gray on hover */
+  color: #0070f3; /* Change text color on hover */
+}
+
+/* Enhancing the tab-content area */
+.tab-content {
+  background-color: rgba(255, 255, 255, 0.95); /* Lighter background for readability */
+  border: 1px solid #ddd; /* Light border around content */
+}
+
+/* Styles for saved recipes */
+.saved-recipe-card {
+  transition: transform 0.2s ease; /* Smooth scaling */
+}
+
+.saved-recipe-card:hover {
+  transform: scale(1.03); /* Slight zoom effect on hover */
+}
+
+/* New styles for settings form */
+.settings-form button {
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+/* Enhancing the logout button */
+.logout-button {
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+/* Placeholder for profile image */
+.profile-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+}
+
+/* For any error or success messages */
+.message {
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Success message */
+.message.success {
+  background-color: #d4edda; /* Light green background */
+  color: #155724; /* Dark green text */
+}
+
+/* Error message */
+.message.error {
+  background-color: #f8d7da; /* Light red background */
+  color: #721c24; /* Dark red text */
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 600px) {
+  .user-info {
+    flex-direction: column; /* Stack user info elements */
+    align-items: flex-start; /* Align items to start */
+  }
+  
+  .user-info img {
+    width: 150px; /* Adjust image size for mobile */
+    height: 150px;
+  }
+  
+  .tab-button {
+    flex-grow: 1; /* Make tab buttons grow on mobile */
+  }
+}
+
+
+

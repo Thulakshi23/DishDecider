@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import './navbar.css'; // Import the CSS file
-import logo from '../../public/assets/IMG-20250105-WA0089(1).jpg'; // Correct logo path
+import logo from '../../public/favicon.png'; // Correct logo path
 import React, { useState, useEffect } from 'react'; // Import useState and useEffect for state management
 
 const Navbar: React.FC = () => {

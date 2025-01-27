@@ -47,7 +47,7 @@ const Login: React.FC = () => {
 
       // Delay redirect to allow toast to display
       setTimeout(() => {
-        router.push('/'); // Redirect to the home page
+        router.push('/user'); // Redirect to the home page
       }, 2000); // Adjust the time (2000 ms = 2 seconds)
     } else {
       const error = await response.json(); // Parse error response
