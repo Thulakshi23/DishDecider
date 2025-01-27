@@ -7,9 +7,16 @@ import './homePage.css'; // CSS import
 const HomePage: React.FC = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [showAdditionalIngredients, setShowAdditionalIngredients] = useState(false);
+  const [recipes, setRecipes] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
+
+    if (checked && selectedIngredients.length >= 5) {
+      alert("You can only select up to 5 ingredients.");
+      return;
+    }
 
     setSelectedIngredients((prev) =>
       checked ? [...prev, value] : prev.filter((ingredient) => ingredient !== value)
@@ -22,6 +29,37 @@ const HomePage: React.FC = () => {
 
   const toggleAdditionalIngredients = () => {
     setShowAdditionalIngredients((prev) => !prev);
+  };
+
+  const fetchRecipes = async () => {
+    if (selectedIngredients.length === 0) {
+      alert("Please select at least one ingredient.");
+      return; // Prevent fetching if no ingredients are selected
+    }
+
+    try {
+      const response = await fetch('/api/edman', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ingredients: selectedIngredients }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch recipes');
+      }
+
+      const data = await response.json();
+      setRecipes(data);
+      setError(null); // Clear any previous error
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
+    }
   };
 
   useEffect(() => {
@@ -158,7 +196,7 @@ const HomePage: React.FC = () => {
             </ul>
           </div>
           <div className="button-container">
-            <button id="find-recipes-btn" className="find-recipes-btn">
+            <button id="find-recipes-btn" className="find-recipes-btn" onClick={fetchRecipes}>
               Find Recipes
             </button>
             <button id="clear-btn" className="clear-btn" onClick={clearIngredients}>
@@ -166,6 +204,25 @@ const HomePage: React.FC = () => {
             </button>
           </div>
         </aside>
+
+        {/* Recipes Section */}
+        <div className="recipes-section">
+          <h2>Recipes</h2>
+          {error && <p className="error-message">{error}</p>}
+          <ul className="recipes-list">
+            {recipes.length > 0 ? (
+              recipes.map((recipe, index) => (
+                <li key={index}>
+                  <h3>{recipe.title}</h3>
+                  <p><strong>Ingredients:</strong> {recipe.ingredients.join(', ')}</p>
+                  <p><strong>Instructions:</strong> {recipe.instructions}</p>
+                </li>
+              ))
+            ) : (
+              <li>No recipes found.</li>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   );

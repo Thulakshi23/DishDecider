@@ -1,142 +1,214 @@
-// "use client";
+"use client";
 
-// import React, { useState } from "react";
-// import styles from "./UserPage.module.css";
+import React, { useState, useEffect } from "react";
+import styles from "./UserPage.module.css";
 
-// const UserPage: React.FC = () => {
-//   const [activeTab, setActiveTab] = useState("savedRecipes");
+const UserPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState("savedRecipes");
+  const [userName, setUserName] = useState("User Name");
+  const [profilePic, setProfilePic] = useState<string | null>(null);
+  const [newUserName, setNewUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
-//   const renderTabContent = () => {
-//     switch (activeTab) {
-//       case "savedRecipes":
-//         return <div>Saved Recipes Content</div>;
-//       case "preferences":
-//         return <div>Preferences Content</div>;
-//       case "settings":
-//         return <div>Settings Content</div>;
-//       default:
-//         return null;
-//     }
-//   };
+  useEffect(() => {
+    const storedUserName = localStorage.getItem("userName");
+    const storedProfilePic = localStorage.getItem("profilePic");
 
-//   return (
-//     <div className={styles["user-page"]}>
-//       <div className={styles["user-info"]}>
-//         <img
-//           src="/default-profile.png"
-//           alt="User"
-//           style={{ width: "80px", height: "80px", borderRadius: "50%" }}
-//         />
-//         <div>
-//           <h3>User Name</h3>
-//           <button style={{ background: "#d9534f", color: "#fff", padding: "10px", borderRadius: "5px" }}>
-//             Log Out
-//           </button>
-//         </div>
-//       </div>
+    if (storedUserName) setUserName(storedUserName);
+    if (storedProfilePic) setProfilePic(storedProfilePic);
+  }, []);
 
-//       <div className={styles["tabs"]}>
-//         <button
-//           className={`${styles["tab-button"]} ${activeTab === "savedRecipes" ? styles["active"] : ""}`}
-//           onClick={() => setActiveTab("savedRecipes")}
-//         >
-//           Saved Recipes
-//         </button>
-//         <button
-//           className={`${styles["tab-button"]} ${activeTab === "preferences" ? styles["active"] : ""}`}
-//           onClick={() => setActiveTab("preferences")}
-//         >
-//           Preferences
-//         </button>
-//         <button
-//           className={`${styles["tab-button"]} ${activeTab === "settings" ? styles["active"] : ""}`}
-//           onClick={() => setActiveTab("settings")}
-//         >
-//           Settings
-//         </button>
-//       </div>
+  const handleSaveChanges = () => {
+    if (newUserName.trim() !== "") {
+      setUserName(newUserName);
+      localStorage.setItem("userName", newUserName);
+      alert("Profile updated successfully!");
+    } else {
+      alert("Please enter a valid name.");
+    }
+  };
 
-//       <div className={styles["tab-content"]}>{renderTabContent()}</div>
-//     </div>
-//   );
-// };
+  const handleLogout = () => {
+    alert("Logged out successfully!");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("profilePic");
+    setUserName("User Name");
+    setProfilePic(null);
+  };
 
-// export default UserPage;
-// "use client";
+  const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imageUrl = reader.result as string;
+        setProfilePic(imageUrl);
+        localStorage.setItem("profilePic", imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-// import React from "react";
-// import { useRouter } from "next/router";
+  const handleDeleteImage = () => {
+    setProfilePic(null);
+    localStorage.removeItem("profilePic");
+    setIsDeleting(false); // Close the delete popup
+  };
 
-// const UserPage: React.FC = () => {
-//   const router = useRouter();
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "savedRecipes":
+        return (
+          <div className={styles["grid-container"]}>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+              <div key={item} className={styles["grid-item"]}>
+                Recipe {item}
+              </div>
+            ))}
+          </div>
+        );
+      case "settings":
+        return (
+          <div className={styles["settings-content"]}>
+            <h3>Edit Profile</h3>
+            <div className={styles["settings-form"]}>
+              <div className={styles["input-group"]}>
+                <input
+                  type="text"
+                  placeholder="User Name"
+                  value={newUserName}
+                  onChange={(e) => setNewUserName(e.target.value)}
+                  className={styles["name-input"]}
+                />
+              </div>
+              <div className={styles["input-group"]}>
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={styles["email-input"]}
+                />
+              </div>
+              <div className={styles["input-group"]}>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={styles["password-input"]}
+                />
+              </div>
+              <div className={styles["input-group"]}>
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className={styles["confirm-password-input"]}
+                />
+              </div>
+              <div className={styles["button-group"]}>
+                <button className={styles["save-button"]} onClick={handleSaveChanges}>
+                  Save Changes
+                </button>
+                <button className={styles["logout-button"]} onClick={handleLogout}>
+                  Log Out
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
-//   const handleLogout = () => {
-//     // Perform logout logic here
-//     router.push("/login"); // Redirect back to the login page
-//   };
+  return (
+    <div className={styles["user-page"]}>
+      <div className={styles["user-info"]}>
+        <div className={styles["profile-container"]}>
+          {profilePic ? (
+            <div className={styles["profile-wrapper"]}>
+              <img
+                src={profilePic}
+                alt="Profile"
+                className={styles["profile-image"]}
+              />
+              <button
+                className={styles["delete-button"]}
+                onClick={() => setIsDeleting(true)}
+              >
+                🗑️
+              </button>
+            </div>
+          ) : (
+            <div className={styles["profile-placeholder"]}>
+              <span className={styles["profile-symbol"]}>
+                {userName.charAt(0).toUpperCase()}
+              </span>
+            </div>
+          )}
+          <button className={styles["upload-button"]}>
+            <label>
+              Add Image
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleProfileImageChange}
+                style={{ display: "none" }}
+              />
+            </label>
+          </button>
+        </div>
+        <div className={styles["user-details"]}>
+          <h3 className={styles["user-name"]}>{userName}</h3>
+        </div>
+      </div>
 
-//   return (
-//     <div className="user-page">
-//       <div className="user-container">
-//         <h1 className="heading">Welcome to the User Page</h1>
-//         <p className="info">
-//           This is your user dashboard. You can manage your account, view your
-//           profile, and explore more features!
-//         </p>
+      {isDeleting && (
+        <div className={styles["delete-popup"]}>
+          <div className={styles["delete-popup-content"]}>
+            <div className={styles["popup-buttons"]}>
+              <button className={styles["confirm-button"]} onClick={handleDeleteImage}>
+                Yes
+              </button>
+              <button
+                className={styles["cancel-button"]}
+                onClick={() => setIsDeleting(false)}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-//         <div className="actions">
-//           <button className="button" onClick={handleLogout}>
-//             Logout
-//           </button>
-//         </div>
-//       </div>
+      <div className={styles["tabs"]}>
+        <button
+          className={`${styles["tab-button"]} ${
+            activeTab === "savedRecipes" ? styles["active"] : ""
+          }`}
+          onClick={() => setActiveTab("savedRecipes")}
+        >
+          Saved Recipes
+        </button>
+        <button
+          className={`${styles["tab-button"]} ${
+            activeTab === "settings" ? styles["active"] : ""
+          }`}
+          onClick={() => setActiveTab("settings")}
+        >
+          Settings
+        </button>
+      </div>
 
-//       <style jsx>{`
-//         .user-page {
-//           display: flex;
-//           align-items: center;
-//           justify-content: center;
-//           height: 100vh;
-//           background-color: #f4f4f9;
-//         }
-//         .user-container {
-//           text-align: center;
-//           background: #ffffff;
-//           padding: 40px;
-//           border-radius: 10px;
-//           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-//         }
-//         .heading {
-//           font-size: 24px;
-//           margin-bottom: 20px;
-//           color: #333333;
-//         }
-//         .info {
-//           font-size: 16px;
-//           color: #555555;
-//           margin-bottom: 30px;
-//         }
-//         .actions {
-//           display: flex;
-//           justify-content: center;
-//         }
-//         .button {
-//           background-color: #4caf50;
-//           color: white;
-//           border: none;
-//           padding: 10px 20px;
-//           border-radius: 5px;
-//           cursor: pointer;
-//           font-size: 16px;
-//           transition: background-color 0.3s ease;
-//         }
-//         .button:hover {
-//           background-color: #45a049;
-//         }
-//       `}</style>
-//     </div>
-//   );
-// };
+      <div className={styles["tab-content"]}>{renderTabContent()}</div>
+    </div>
+  );
+};
 
-// export default UserPage;
-
+export default UserPage;

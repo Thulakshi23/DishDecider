@@ -4,23 +4,32 @@ import Link from 'next/link';
 import Image from 'next/image';
 import './navbar.css'; // Import the CSS file
 import logo from '../../public/assets/IMG-20250105-WA0089(1).jpg'; // Correct logo path
-import React, { useState } from 'react'; // Import useState for state management
+import React, { useState, useEffect } from 'react'; // Import useState and useEffect for state management
 
 const Navbar: React.FC = () => {
-  // State to manage login status and username
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Example state for login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
   const [username, setUsername] = useState(''); // State for storing the username
+  const [firstLetter, setFirstLetter] = useState(''); // State for storing the first letter of the username
 
-  // Function to simulate login (replace this with your actual login logic)
-  const handleLogin = (userName: string) => {
-    setUsername(userName); // Set username from login input
-    setIsLoggedIn(true); // Set login status to true
-  };
+  useEffect(() => {
+    // Check if user is logged in by fetching from localStorage
+    const storedUsername = localStorage.getItem('username');
+    const storedFirstLetter = localStorage.getItem('firstLetter');
+
+    if (storedUsername) {
+      setUsername(storedUsername);
+      setFirstLetter(storedFirstLetter || ''); // Ensure firstLetter is set to empty string if null
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   // Function to handle logout
   const handleLogout = () => {
     setIsLoggedIn(false); // Reset login status
     setUsername(''); // Clear the username
+    setFirstLetter(''); // Clear the first letter
+    localStorage.removeItem('username'); // Remove username from localStorage
+    localStorage.removeItem('firstLetter'); // Remove first letter from localStorage
   };
 
   return (
@@ -45,10 +54,10 @@ const Navbar: React.FC = () => {
         <input type="text" className="search-bar" placeholder="🔍 Search..." />
         {isLoggedIn ? (
           <div className="profile-container" onClick={handleLogout}>
-            <div className="profile-icon">{username.charAt(0).toUpperCase()}</div> {/* Display first letter of the username */}
+            <div className="profile-icon">{firstLetter}</div> {/* Display first letter of the username */}
           </div>
         ) : (
-          <Link href="/login" className="login-link" onClick={() => handleLogin(prompt("Enter your name:") || "")}>Login</Link>
+          <Link href="/login" className="login-link">Login</Link>
         )}
       </div>
     </div>

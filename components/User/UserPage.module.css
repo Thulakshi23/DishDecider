@@ -1,43 +1,204 @@
 .user-page {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-image: url('../../public/assets/Background2.jpg'); /* Replace with the correct image path */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Optional: Creates a parallax effect */
-    min-height: 100vh;
-    color: #333;
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .tabs {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .tab-button {
-    background-color: #f5f5f5;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .tab-button.active {
-    background-color: #0070f3;
-    color: white;
-  }
-  
-  .tab-content {
-    margin-top: 20px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.8); /* Optional for better readability */
-    border-radius: 8px;
-  }
-  
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-image: url('../../public/assets/Background2.jpg'); /* Replace with the correct image path */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Optional: Creates a parallax effect */
+  min-height: 100vh;
+  color: #333;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.user-info img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #0070f3; /* Added styled border */
+  background-color: #f5f5f5; /* Fallback background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem; /* Font size for initials */
+  font-weight: bold;
+  color: #0070f3; /* Color for initials */
+  object-fit: cover; /* Ensures the image fits nicely */
+}
+
+.user-info h3 {
+  font-size: 1.5rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  background-color: #f5f5f5;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.tab-button.active {
+  background-color: #0070f3;
+  color: white;
+}
+
+.tab-content {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.9); /* Optional for better readability */
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.saved-recipes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.saved-recipe-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+}
+
+.saved-recipe-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px; /* Added spacing above the settings content */
+}
+
+.settings-content h3 {
+  margin-bottom: 10px; /* Spacing below the heading */
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.settings-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.settings-form button {
+  background-color: #0070f3; /* Primary button color */
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.settings-form button:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+.logout-button {
+  margin-top: 20px; /* Added spacing for the logout button */
+  background-color: #f44336;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Smooth transition */
+  margin-left: 20px;
+}
+
+.logout-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Added a button below the profile image */
+.add-profile-pic-button {
+  margin-top: 10px;
+  background-color: #0070f3;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-profile-pic-button:hover {
+  background-color: #0056b3;
+}
+
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  position: absolute; /* Position relative to the delete icon */
+  top: -72px; /* Adjust based on the icon position */
+  left: 45px;/* Align it to the right of the delete icon */
+  border-radius: 8px; /* Rounded corners */
+  padding: 0.5rem 1rem; /* Padding inside the popup */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+  z-index: 10; /* Ensure it stays above other elements */
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); /* Smooth transition */
+}
+
+.popup-buttons button {
+  padding: 0.3rem 0.rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup-buttons .confirm-button {
+  background-color: #ff5252; /* Red for confirm */
+  color: white;
+}
+
+.popup-buttons .confirm-button:hover {
+  background-color: #ff3b3b; /* Darker red on hover */
+}
+
+.popup-buttons .cancel-button {
+  background-color: #e0e0e0; /* Neutral gray for cancel */
+  color: #333;
+}
+
+.popup-buttons .cancel-button:hover {
+  background-color: #ccc; /* Darker gray on hover */
+}
+
+.delete-popup {
+  position: relative;
+}

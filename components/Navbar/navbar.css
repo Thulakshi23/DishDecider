@@ -1,9 +1,9 @@
 /* Navbar container styling */
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px; /* Increase padding for better spacing */
+  justify-content: space-between; /* Distribute space between logo and nav links */
+  align-items: center; /* Vertically center the content */
+  padding: 15px 30px;
   background-color: #fc3132;
   box-shadow: 0 4px 6px rgba(190, 40, 40, 0.1);
   font-family: 'Arial Narrow Bold', sans-serif;
@@ -13,37 +13,30 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px; /* Add space between logo image and text */
+  gap: 10px; /* Space between logo image and text */
 }
 
 .logo-image {
-  height: 70px; /* Increase size of the logo */
+  height: 50px; /* Adjust logo size */
   width: auto;
 }
 
-.logo-text {
-  font-size: 1.5rem; /* Add logo text size if applicable */
-  font-weight: bold;
-  color: white;
-}
-
-/* Navigation links container */
 /* Navigation links container */
 .nav-links {
   list-style: none;
   display: flex;
-  justify-content: center; /* Center the links horizontally */
+  justify-content: flex-start; /* Align links to the left */
   align-items: center; /* Align links vertically */
   gap: 40px; /* Adjust spacing between links */
   padding: 0;
   margin: 0; /* Remove unnecessary margin */
 }
 
-/* Navigation links styling */
+/* Navigation link styling */
 .nav-link {
   text-decoration: none;
   color: white;
-  font-size: 1.2rem; /* Slightly larger font for better visibility */
+  font-size: 1.2rem; /* Slightly larger font for visibility */
   font-weight: bold;
   letter-spacing: 0.5px;
   padding: 10px 15px; /* Add padding for better clickability */
@@ -57,21 +50,20 @@
   text-shadow: 0 0 5px #ffd700; /* Glow effect */
 }
 
-
-/* Search and login/profile container */
+/* Search and login container */
 .search-login {
   display: flex;
   align-items: center;
-  gap: 15px; /* Add more spacing between elements */
+  gap: 15px;
 }
 
 /* Search bar styling */
 .search-bar {
-  padding: 8px 15px; /* Increase padding for better usability */
+  padding: 8px 15px;
   border: 1px solid #ddd;
   border-radius: 25px;
   outline: none;
-  font-size: 15px; /* Slightly larger font */
+  font-size: 15px;
   transition: box-shadow 0.3s ease;
 }
 
@@ -84,9 +76,9 @@
   text-decoration: none;
   color: #333;
   font-weight: 600;
-  padding: 10px 25px; /* Increase padding for better clickability */
+  padding: 10px 25px;
   border: 1px solid #ddd;
-  border-radius: 30px; /* More rounded corners */
+  border-radius: 30px;
   background-color: #f9f9f9;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }

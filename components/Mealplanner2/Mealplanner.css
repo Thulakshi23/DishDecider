@@ -1,0 +1,58 @@
+/* src/styles/MealPlanner.css */
+.meal-planner {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .meal-planner h2 {
+    text-align: center;
+  }
+  
+  .meal-planner input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .meal-planner button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .meal-planner button:hover {
+    background-color: #218838;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+  }
+  
+  .meal-planner ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .meal-planner li {
+    margin: 15px 0;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .meal-planner img {
+    max-width: 100%;
+    height: auto;
+  }
+  
