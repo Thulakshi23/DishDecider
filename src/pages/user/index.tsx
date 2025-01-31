@@ -1,11 +1,10 @@
 import Navbar from '../../../components/Navbar/navbar'; // Adjust the path if necessary
-import User from '../../../components/User/user'; // Adjust the path if necessary
+import User from '../../../components/User/user'; // Ensure you're importing the UserPage component correctly
 import Footer from '../../../components/Footer/footer';
 
-
-const Contact: React.FC = () => {
+const UserPage: React.FC = () => {
   return (
-    <div>      
+    <div>
       <Navbar />
       <User />
       <Footer />
@@ -13,4 +12,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default Contact;
+export default UserPage;

@@ -36,11 +36,12 @@ const Login: React.FC = () => {
 
     if (response.ok) {
       const data = await response.json(); // Parse the response to get user info
-      const username = data.username || ''; // Replace with the actual key from your API response
+      const username = data.username || 'User'; // Replace with the actual key from your API response
       const firstLetter = username.charAt(0).toUpperCase(); // Get first letter of username
 
       // Store username and first letter in localStorage for persistent login
       localStorage.setItem('username', username);
+      localStorage.setItem('email', email); // Store the full email
       localStorage.setItem('firstLetter', firstLetter);
 
       toast.success('Login successful!'); // Display success toast

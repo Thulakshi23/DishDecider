@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import dbConnect from '../../../config/db';
 import userModel from '../models/User';
 
+
 const JWT_SECRET = process.env.JWT_SECRET; // Ensure this is set in your environment
 
 export async function POST(req: NextRequest) {

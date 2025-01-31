@@ -3,28 +3,51 @@
 import React, { useState, useEffect } from "react";
 import styles from "./UserPage.module.css";
 
+// Define the structure of the user data we expect to receive
+interface User {
+  userName: string;
+  email: string;
+  profilePic: string | null;
+}
+
 const UserPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState("savedRecipes");
-  const [userName, setUserName] = useState("User Name");
+  const [activeTab, setActiveTab] = useState<"savedRecipes" | "settings">("savedRecipes");
+  const [userName, setUserName] = useState<string>("User Name");
   const [profilePic, setProfilePic] = useState<string | null>(null);
-  const [newUserName, setNewUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [newUserName, setNewUserName] = useState<string>("");
+  const [email, setEmail] = useState<string>(""); // State for email
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  
+  // New state for loading and error handling
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    const storedProfilePic = localStorage.getItem("profilePic");
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/api/user'); // Adjust the URL if necessary
+        if (!response.ok) throw new Error('Failed to fetch user data.');
 
-    if (storedUserName) setUserName(storedUserName);
-    if (storedProfilePic) setProfilePic(storedProfilePic);
+        const userData: User = await response.json();
+        setUserName(userData.userName);
+        setEmail(userData.email);
+        setProfilePic(userData.profilePic);
+        setNewUserName(userData.userName); // Initialize with current name
+      } catch (error) {
+        setError((error as Error).message); // Cast to Error to access the message
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   const handleSaveChanges = () => {
     if (newUserName.trim() !== "") {
       setUserName(newUserName);
-      localStorage.setItem("userName", newUserName);
       alert("Profile updated successfully!");
     } else {
       alert("Please enter a valid name.");
@@ -33,10 +56,9 @@ const UserPage: React.FC = () => {
 
   const handleLogout = () => {
     alert("Logged out successfully!");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("profilePic");
     setUserName("User Name");
     setProfilePic(null);
+    setEmail(""); // Clear email state
   };
 
   const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +68,6 @@ const UserPage: React.FC = () => {
       reader.onload = () => {
         const imageUrl = reader.result as string;
         setProfilePic(imageUrl);
-        localStorage.setItem("profilePic", imageUrl);
       };
       reader.readAsDataURL(file);
     }
@@ -54,8 +75,7 @@ const UserPage: React.FC = () => {
 
   const handleDeleteImage = () => {
     setProfilePic(null);
-    localStorage.removeItem("profilePic");
-    setIsDeleting(false); // Close the delete popup
+    setIsDeleting(false);
   };
 
   const renderTabContent = () => {
@@ -79,8 +99,8 @@ const UserPage: React.FC = () => {
                 <input
                   type="text"
                   placeholder="User Name"
-                  value={newUserName}
-                  onChange={(e) => setNewUserName(e.target.value)}
+                  value={newUserName} // Controlled input for newUserName
+                  onChange={(e) => setNewUserName(e.target.value)} // Update state on change
                   className={styles["name-input"]}
                 />
               </div>
@@ -88,8 +108,8 @@ const UserPage: React.FC = () => {
                 <input
                   type="email"
                   placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={email} // Controlled input for email
+                  onChange={(e) => setEmail(e.target.value)} // Update state on change
                   className={styles["email-input"]}
                 />
               </div>
@@ -97,8 +117,8 @@ const UserPage: React.FC = () => {
                 <input
                   type="password"
                   placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={password} // Controlled input for password
+                  onChange={(e) => setPassword(e.target.value)} // Update state on change
                   className={styles["password-input"]}
                 />
               </div>
@@ -106,8 +126,8 @@ const UserPage: React.FC = () => {
                 <input
                   type="password"
                   placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={confirmPassword} // Controlled input for confirm password
+                  onChange={(e) => setConfirmPassword(e.target.value)} // Update state on change
                   className={styles["confirm-password-input"]}
                 />
               </div>
@@ -129,6 +149,9 @@ const UserPage: React.FC = () => {
 
   return (
     <div className={styles["user-page"]}>
+      {loading && <p>Loading user data...</p>}
+      {error && <p>Error: {error}</p>}
+
       <div className={styles["user-info"]}>
         <div className={styles["profile-container"]}>
           {profilePic ? (
@@ -148,7 +171,7 @@ const UserPage: React.FC = () => {
           ) : (
             <div className={styles["profile-placeholder"]}>
               <span className={styles["profile-symbol"]}>
-                {userName.charAt(0).toUpperCase()}
+                {(email && email.charAt(0).toUpperCase()) || userName.charAt(0).toUpperCase()}
               </span>
             </div>
           )}
@@ -166,6 +189,7 @@ const UserPage: React.FC = () => {
         </div>
         <div className={styles["user-details"]}>
           <h3 className={styles["user-name"]}>{userName}</h3>
+          <p className={styles["user-email"]}>{email}</p> {/* Display email */}
         </div>
       </div>
 

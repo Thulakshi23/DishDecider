@@ -9,16 +9,16 @@ import React, { useState, useEffect } from 'react'; // Import useState and useEf
 const Navbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
   const [username, setUsername] = useState(''); // State for storing the username
-  const [firstLetter, setFirstLetter] = useState(''); // State for storing the first letter of the username
+  const [firstLetter, setFirstLetter] = useState(''); // State for storing the first letter of the email
 
   useEffect(() => {
     // Check if user is logged in by fetching from localStorage
     const storedUsername = localStorage.getItem('username');
-    const storedFirstLetter = localStorage.getItem('firstLetter');
+    const storedEmail = localStorage.getItem('email'); // Fetch email from localStorage
 
-    if (storedUsername) {
+    if (storedUsername && storedEmail) {
       setUsername(storedUsername);
-      setFirstLetter(storedFirstLetter || ''); // Ensure firstLetter is set to empty string if null
+      setFirstLetter(storedEmail.charAt(0).toUpperCase()); // Set firstLetter to the first character of the email
       setIsLoggedIn(true);
     }
   }, []);
@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
     setUsername(''); // Clear the username
     setFirstLetter(''); // Clear the first letter
     localStorage.removeItem('username'); // Remove username from localStorage
-    localStorage.removeItem('firstLetter'); // Remove first letter from localStorage
+    localStorage.removeItem('email'); // Remove email from localStorage
   };
 
   return (
@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
         <input type="text" className="search-bar" placeholder="🔍 Search..." />
         {isLoggedIn ? (
           <div className="profile-container" onClick={handleLogout}>
-            <div className="profile-icon">{firstLetter}</div> {/* Display first letter of the username */}
+            <div className="profile-icon">{firstLetter}</div> {/* Display first letter of the email */}
           </div>
         ) : (
           <Link href="/login" className="login-link">Login</Link>
