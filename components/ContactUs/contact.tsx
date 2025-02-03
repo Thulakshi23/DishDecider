@@ -14,7 +14,7 @@ const ContactUs: React.FC = () => {
     event.preventDefault();
 
     if (!name || !email || !phone) {
-      toast.error("All fields are required ❌");
+      toast.error("All fields are required ");
       return;
     }
 
@@ -34,7 +34,7 @@ const ContactUs: React.FC = () => {
         toast.error("Failed to send message. Please try again later. ❌");
       }
     } catch (error) {
-      toast.error("An error occurred. Please try again later. ❌");
+      toast.error("An error occurred. Please try again later. ");
     }
   };
 

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import User from "../models/User"; // Adjust the path based on your project structure
+import User from "./User"; // Adjust the path based on your project structure
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"; // Import JWT for token generation
 
