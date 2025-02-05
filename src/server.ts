@@ -4,7 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db";
 import { userRoutes } from "./app/api/users/route"; // Update the import to use named import
-import adminRoutes from "./app/api/Admin/route";
+import adminRoutes from "./app/api/admin/route";
 
 // Initialize dotenv to load environment variables
 dotenv.config();

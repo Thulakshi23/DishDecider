@@ -6,7 +6,7 @@
   padding: 15px 30px;
   background-color: #fc3132;
   box-shadow: 0 4px 6px rgba(190, 40, 40, 0.1);
-  font-family: 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
 /* Logo styling */
@@ -44,31 +44,19 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.nav-link:hover {
-  background-color: rgba(255, 215, 0, 0.2); /* Light golden background on hover */
-  color: #ffd700; /* Golden text color */
-  text-shadow: 0 0 5px #ffd700; /* Glow effect */
+/* Hover effect */
+.nav-link:hover,
+.nav-link.active {
+  background-color: white; /* Light golden background on hover */
+  color: #fc3132; /* Golden text color */
 }
+
 
 /* Search and login container */
 .search-login {
   display: flex;
   align-items: center;
   gap: 15px;
-}
-
-/* Search bar styling */
-.search-bar {
-  padding: 8px 15px;
-  border: 1px solid #ddd;
-  border-radius: 25px;
-  outline: none;
-  font-size: 15px;
-  transition: box-shadow 0.3s ease;
-}
-
-.search-bar:focus {
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Softer shadow effect */
 }
 
 /* Login link styling */

@@ -1,112 +1,118 @@
-/* payment.css */
+/* upgrade.css */
+
+/* CSS Variables for Consistent Styling */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #333;
+  --background-color: #f8f9fa;
+  --card-background: white;
+  --card-border: #ddd;
+  --text-color-dark: #222;
+  --text-color-light: #555;
+  --text-color-muted: #444;
+  --hover-color: rgba(0, 0, 0, 0.2);
+  --font-size-large: 2.5rem;
+  --font-size-medium: 1.8rem;
+  --font-size-small: 1.3rem;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
 
 /* General Page Styles */
 .payment-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #f8f9fa;
-    padding: 20px;
-  }
-  
-  /* Heading */
-  .payment-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  /* Plans Grid */
-  .plans-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 1000px;
-  }
-  
-  /* Individual Plan Card */
-  .plan-card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .plan-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Plan Title */
-  .plan-title {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #222;
-  }
-  
-  /* Price */
-  .plan-price {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #007bff;
-    margin-top: 8px;
-  }
-  
-  /* Description */
-  .plan-description {
-    color: #555;
-    margin-top: 10px;
-    font-size: 1rem;
-  }
-  
-  /* Features List */
-  .plan-features {
-    margin-top: 15px;
-    padding: 0;
-    list-style: none;
-  }
-  
-  .plan-features li {
-    font-size: 1rem;
-    color: #444;
-    margin: 5px 0;
-  }
-  
-  /* Button */
-  .plan-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: black;
-    color: white;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .plan-button:hover {
-    background-color: #333;
-  }
-  
-  /* Background Image */
-.payment-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-image: url("https://res.cloudinary.com/dgvx2zkcb/image/upload/v1738385001/pexels-goumbik-616401_nrshx8.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    padding: 20px;
-  }
-  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://res.cloudinary.com/dgvx2zkcb/image/upload/v1738385001/pexels-goumbik-616401_nrshx8.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 20px;
+}
+
+/* Heading */
+.payment-title {
+  font-size: 3.5rem; /* Increase font size */
+  font-weight: bold;
+  color: var(--secondary-color); /* Keep the existing color */
+  text-transform: uppercase; /* Make text uppercase for emphasis */
+  letter-spacing: 3px; /* Add more spacing between letters */
+  margin-bottom: 150px;
+  text-align: center;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Add a stronger shadow effect */
+  border-bottom: 4px solid var(--primary-color); /* Underline effect for focus */
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+
+
+/* Plans Grid */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* Individual Plan Card */
+.plan-card {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 150px;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+/* Hover effect for plan card */
+.plan-card:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 8px 16px var(--hover-color); /* Enhance shadow */
+}
+
+/* Plan Title */
+.plan-title {
+  font-size: var(--font-size-medium);
+  font-weight: 600;
+  color: var(--text-color-dark);
+}
+
+/* Price */
+.plan-price {
+  font-size: var(--font-size-small);
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-top: 8px;
+}
+
+/* Description */
+.plan-description {
+  color: var(--text-color-light);
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* Button */
+.plan-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Button Hover Effect */
+.plan-button:hover {
+  background-color: #555; /* Darker shade for hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}

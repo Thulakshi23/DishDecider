@@ -10,8 +10,7 @@
   min-height: 100vh; /* Set a minimum height to cover the viewport */
   padding: 20px; /* Add some padding for spacing */
   color: black; /* Text color */
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; /* Font family */
-}
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;}
 
 /* Layout container */
 .container {

@@ -1,21 +1,21 @@
-"use client"; // Ensure this component is treated as a client component
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // Import Framer Motion components
-import './homePage.css'; // CSS import
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import "./homePage.css";
 
 const HomePage: React.FC = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [showAdditionalIngredients, setShowAdditionalIngredients] = useState(false);
   const [recipes, setRecipes] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
 
     if (checked && selectedIngredients.length >= 5) {
-      alert("You can only select up to 5 ingredients.");
-      return;
+      return; // Prevent selecting more than 5
     }
 
     setSelectedIngredients((prev) =>
@@ -25,6 +25,7 @@ const HomePage: React.FC = () => {
 
   const clearIngredients = () => {
     setSelectedIngredients([]);
+    setRecipes([]); // Clear recipes when ingredients are reset
   };
 
   const toggleAdditionalIngredients = () => {
@@ -34,142 +35,87 @@ const HomePage: React.FC = () => {
   const fetchRecipes = async () => {
     if (selectedIngredients.length === 0) {
       alert("Please select at least one ingredient.");
-      return; // Prevent fetching if no ingredients are selected
+      return;
     }
 
+    setLoading(true); // Show loading indicator
+
     try {
-      const response = await fetch('/api/edman', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await fetch("/api/edman", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ingredients: selectedIngredients }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch recipes');
+        throw new Error("Failed to fetch recipes");
       }
 
       const data = await response.json();
       setRecipes(data);
-      setError(null); // Clear any previous error
+      setError(null);
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('An unknown error occurred');
-      }
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
+    } finally {
+      setLoading(false); // Hide loading indicator
     }
   };
 
-  useEffect(() => {
-    // Any necessary side effects or state updates can be handled here
-  }, [selectedIngredients]);
+  useEffect(() => {}, [selectedIngredients]);
 
   return (
     <div id="home-page" className="home-page">
       <div className="container">
-        {/* Ingredients Selection Section */}
+        {/* Ingredient Selection */}
         <motion.div
           className="box"
-          initial={{ opacity: 0 }} // Initial state
-          animate={{ opacity: 1 }} // Animate to this state
-          exit={{ opacity: 0 }} // Exit animation
-          transition={{ duration: 0.5 }} // Transition duration
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
         >
           <h2>
             What's in Your Fridge? <span role="img" aria-label="thinking emoji">🤔</span>
           </h2>
-          
-          {/* Button to show/hide additional ingredients */}
-          <button
-            id="toggle-button"
-            className="dropdown-btn"
-            onClick={toggleAdditionalIngredients}
-          >
-            {showAdditionalIngredients ? 'Hide Other Ingredients' : 'Show Other Ingredients'}
+
+          <button id="toggle-button" className="dropdown-btn" onClick={toggleAdditionalIngredients}>
+            {showAdditionalIngredients ? "Hide Other Ingredients" : "Show Other Ingredients"}
           </button>
 
           {/* Fresh Vegetables Section */}
           <div id="vegetables-section">
             <h3>Fresh Vegetables</h3>
             <ul className="ingredient-grid">
-              {['Jackfruit', 
-                  'Eggplant', 
-                  'Pumpkin', 
-                  'Drumstick', 
-                  'Okra', 
-                  'Carrots', 
-                  'Beetroots', 
-                  'Spinach', 
-                  'Broccoli', 
-                  'Zucchini', 
-                  'Tomatoes', 
-                  'Cucumbers', 
-                  'Onions', 
-                  'Garlic', 
-                  'Mushrooms'].map((veg) => (
+              {["Jackfruit", "Eggplant", "Pumpkin", "Drumstick", "Okra", "Carrots"].map((veg) => (
                 <li key={veg}>
-                  <input type="checkbox" value={veg} onChange={handleCheckboxChange} /> {veg}
+                  <input
+                    type="checkbox"
+                    value={veg}
+                    onChange={handleCheckboxChange}
+                    disabled={selectedIngredients.length >= 5 && !selectedIngredients.includes(veg)}
+                  />{" "}
+                  {veg}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Show additional ingredients when the button is clicked */}
           <AnimatePresence>
             {showAdditionalIngredients && (
-              <motion.div
-                initial={{ opacity: 0 }} // Initial state for additional ingredients
-                animate={{ opacity: 1 }} // Animate to this state
-                exit={{ opacity: 0 }} // Exit animation
-                transition={{ duration: 0.5 }} // Transition duration
-              >
-                {/* Fresh Fruits Section */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+                {/* Fruits Section */}
                 <div id="fruits-section">
                   <h3>Fresh Fruits</h3>
                   <ul className="ingredient-grid">
-                    {['Apples', 
-                        'Bananas', 
-                        'Oranges', 
-                        'Grapes', 
-                        'Pineapples', 
-                        'Mangoes', 
-                        'Strawberries', 
-                        'Blueberries', 
-                        'Peaches', 
-                        'Pears', 
-                        'Kiwis', 
-                        'Lemons', 
-                        'Limes', 
-                        'Cherries', 
-                        'Watermelons'].map((fruit) => (
+                    {["Apples", "Bananas", "Oranges", "Grapes", "Pineapples"].map((fruit) => (
                       <li key={fruit}>
-                        <input type="checkbox" value={fruit} onChange={handleCheckboxChange} /> {fruit}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Non-Vegetarian Dishes Section */}
-                <div id="non-veg-section">
-                  <h3>Non-Vegetarian Dishes</h3>
-                  <ul className="ingredient-grid">
-                    {['Chicken', 'Fish', 'Eggs'].map((dish) => (
-                      <li key={dish}>
-                        <input type="checkbox" value={dish} onChange={handleCheckboxChange} /> {dish}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Dairy Products Section */}
-                <div id="dairy-section">
-                  <h3>Dairy Products</h3>
-                  <ul className="ingredient-grid">
-                    {['Milk', 'Cheese', 'Yogurt', 'Butter', ].map((dairy) => (
-                      <li key={dairy}>
-                        <input type="checkbox" value={dairy} onChange={handleCheckboxChange} /> {dairy}
+                        <input
+                          type="checkbox"
+                          value={fruit}
+                          onChange={handleCheckboxChange}
+                          disabled={selectedIngredients.length >= 5 && !selectedIngredients.includes(fruit)}
+                        />{" "}
+                        {fruit}
                       </li>
                     ))}
                   </ul>
@@ -179,10 +125,10 @@ const HomePage: React.FC = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Selected Ingredients Section */}
+        {/* Selected Ingredients */}
         <aside className="your-ingredients">
           <h2>Your Ingredients</h2>
-          <div className={`ingredients-list ${selectedIngredients.length === 0 ? 'empty' : ''}`}>
+          <div className={`ingredients-list ${selectedIngredients.length === 0 ? "empty" : ""}`}>
             <ul id="selected-ingredients">
               {selectedIngredients.length > 0 ? (
                 selectedIngredients.map((ingredient, index) => (
@@ -196,8 +142,8 @@ const HomePage: React.FC = () => {
             </ul>
           </div>
           <div className="button-container">
-            <button id="find-recipes-btn" className="find-recipes-btn" onClick={fetchRecipes}>
-              Find Recipes
+            <button id="find-recipes-btn" className="find-recipes-btn" onClick={fetchRecipes} disabled={loading}>
+              {loading ? "Fetching..." : "Find Recipes"}
             </button>
             <button id="clear-btn" className="clear-btn" onClick={clearIngredients}>
               Clear
@@ -210,16 +156,22 @@ const HomePage: React.FC = () => {
           <h2>Recipes</h2>
           {error && <p className="error-message">{error}</p>}
           <ul className="recipes-list">
-            {recipes.length > 0 ? (
+            {loading ? (
+              <p>Loading recipes...</p>
+            ) : recipes.length > 0 ? (
               recipes.map((recipe, index) => (
                 <li key={index}>
                   <h3>{recipe.title}</h3>
-                  <p><strong>Ingredients:</strong> {recipe.ingredients.join(', ')}</p>
-                  <p><strong>Instructions:</strong> {recipe.instructions}</p>
+                  <p>
+                    <strong>Ingredients:</strong> {recipe.ingredients.join(", ")}
+                  </p>
+                  <p>
+                    <strong>Instructions:</strong> {recipe.instructions}
+                  </p>
                 </li>
               ))
             ) : (
-              <li>No recipes found.</li>
+              <p>No recipes found for the selected ingredients.</p>
             )}
           </ul>
         </div>

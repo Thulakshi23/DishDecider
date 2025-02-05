@@ -4,6 +4,7 @@ import "./contact.css";
 import "react-toastify/dist/ReactToastify.css"; // Import toast styles
 import { toast } from "react-toastify";
 
+
 const ContactUs: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
