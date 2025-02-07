@@ -1,7 +1,7 @@
 // src/app/api/Admin/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '../../../config/db'; // Ensure this path is correct
-import { User } from '../models/admin'; // Adjust the import path based on your project structure
+import User from '../models/User'; // Adjust the import path based on your project structure
 import Dish from '../models/Dish'; // Adjust the import path for the Dish model
 
 export async function GET(_req: NextRequest) {

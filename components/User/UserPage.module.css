@@ -1,13 +1,14 @@
 .user-page {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   padding: 20px;
-  background-image: url('../../public/assets/Background2.jpg'); /* Replace with the correct image path */
+  background-image: url('/assets/Background2.jpg'); /* Correct path */
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Optional: Creates a parallax effect */
+  background-attachment: fixed; /* Creates a parallax effect */
   min-height: 100vh;
   color: #333;
 }
+
 
 .user-info {
   display: flex;

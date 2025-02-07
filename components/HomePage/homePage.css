@@ -1,16 +1,31 @@
 /* homePage.css */
 
 /* Background and page styling */
-#home-page { /* Use only the ID selector to avoid confusion */
+#home-page {
+  position: relative; /* Establish positioning context for the pseudo-element */
+  min-height: 100vh; /* Set a minimum height to cover the viewport */
+  padding: 20px; /* Add some padding for spacing */
+  color: black; /* Text color */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  overflow: hidden; /* Prevent overflow issues */
+}
+
+#home-page::before {
+  content: ''; /* Required for pseudo-elements */
+  position: absolute; /* Position it absolutely within the parent */
+  top: 0; /* Align it to the top */
+  left: 0; /* Align it to the left */
+  right: 0; /* Stretch to the right */
+  bottom: 0; /* Stretch to the bottom */
   background-image: url('https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622732/pexels-adonyi-foto-1400172_cipkpx.jpg'); /* Cloudinary image URL */
   background-size: cover; /* Ensure the image covers the entire background */
   background-position: center; /* Center the background image */
   background-attachment: fixed; /* Keep the background fixed during scroll */
   background-repeat: no-repeat; /* Prevent the image from repeating */
-  min-height: 100vh; /* Set a minimum height to cover the viewport */
-  padding: 20px; /* Add some padding for spacing */
-  color: black; /* Text color */
-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;}
+  opacity: 0.9; /* Adjust the opacity value (0 to 1) */
+  z-index: -1; /* Place it behind other content */
+}
+
 
 /* Layout container */
 .container {
@@ -163,4 +178,12 @@ h3 {
 .ingredient-grid label {
   font-size: 0.9rem; /* Smaller font size for labels */
   line-height: 1.2; /* Adjust line height for better spacing */
+}
+
+.recipes-section{
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  flex: 0.5;
 }

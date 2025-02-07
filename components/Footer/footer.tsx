@@ -1,16 +1,12 @@
 import React from 'react';
 import './footer.css'; // Import the CSS file
+import Image from 'next/image';
+import logo from '../../public/assets/Teller Besteck Grillen Einladung.png'; // Correct logo path
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer-logo">
-        <img
-          src="https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622733/IMG-20250105-WA0089_1_g60v3l.jpg" // Replace with your Cloudinary logo URL
-          alt="Dish Decider Logo"
-          className="logo"
-        />
-      </div>
+      <Image src={logo} alt="DishDecider Logo" className="footer-logo" width={100} height={50} />
       <p className="footer-paragraph">© 2024 DishDecider.com</p>
       <div className="social-links">
         <a

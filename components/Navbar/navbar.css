@@ -9,17 +9,6 @@
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
-/* Logo styling */
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Space between logo image and text */
-}
-
-.logo-image {
-  height: 50px; /* Adjust logo size */
-  width: auto;
-}
 
 /* Navigation links container */
 .nav-links {

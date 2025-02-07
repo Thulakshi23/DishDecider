@@ -36,19 +36,24 @@ const Login: React.FC = () => {
 
     if (response.ok) {
       const data = await response.json(); // Parse the response to get user info
-      const username = data.username || 'User'; // Replace with the actual key from your API response
-      const firstLetter = username.charAt(0).toUpperCase(); // Get first letter of username
+      const firstName = data.user.firstName; // Get firstName from response
+      const firstLetter = firstName.charAt(0).toUpperCase(); // Get first letter of username
 
-      // Store username and first letter in localStorage for persistent login
-      localStorage.setItem('username', username);
+      // Store user info in localStorage for persistent login
+      localStorage.setItem('username', firstName);
       localStorage.setItem('email', email); // Store the full email
       localStorage.setItem('firstLetter', firstLetter);
+      localStorage.setItem('role', data.user.role); // Store user role
+      localStorage.setItem('token', data.token); // Store JWT token for later use
 
       toast.success('Login successful!'); // Display success toast
 
+      // Redirect based on user role
+      const redirectUrl = data.redirectUrl; // Use redirect URL from response
+      
       // Delay redirect to allow toast to display
       setTimeout(() => {
-        router.push('/user'); // Redirect to the home page
+        router.push(redirectUrl); // Redirect to the determined page
       }, 2000); // Adjust the time (2000 ms = 2 seconds)
     } else {
       const error = await response.json(); // Parse error response
@@ -97,6 +102,7 @@ const Login: React.FC = () => {
           </div>
           <button type="submit" className="button">Login</button>
         </form>
+      
         <Link href="/forgot-password">
           <span className="forgot-password">Forgot password?</span>
         </Link>

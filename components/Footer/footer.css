@@ -1,42 +1,61 @@
 .footer {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: #fc3132;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #fc3132;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.footer-logo {
+  max-width: 80px;
+  height: auto;
+}
+
+.footer-paragraph {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.social-link {
+  display: inline-block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-link:hover {
+  transform: scale(1.15);
+  opacity: 0.8;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
   }
-  
-  .footer-logo .logo {
-    max-width: 50px;
-    height: auto;
-  }
-  
-  .footer-paragraph {
-    margin: 10px 0;
-    font-size: 14px;
-    color: white;
-  }
-  
+
   .social-links {
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
+    margin-top: 10px;
   }
-  
-  .social-link {
-    margin: 0 10px;
-    display: inline-block;
-  }
-  
-  .social-icon {
-    width: 30px;
-    height: 30px;
-    transition: transform 0.3s ease;
-  }
-  
-  .social-icon:hover {
-    transform: scale(1.1);
-  }
-  
+}

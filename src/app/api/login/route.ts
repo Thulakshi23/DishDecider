@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import User from "../models/User"; // Adjust the path based on your project structure
-import bcrypt from "bcrypt";
 import dbConnect from "../../../config/db"; // Adjust the path based on your project structure
-import jwt from "jsonwebtoken"; // Import JWT for token generation
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -18,17 +16,13 @@ export const POST = async (req: NextRequest) => {
     }
 
     // Compare the provided password with the stored hashed password
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return NextResponse.json({ message: "Incorrect password" }, { status: 400 });
     }
 
     // Generate an authentication token
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET || 'your_secret_key',
-      { expiresIn: '1h' }
-    );
+    const token = user.generateAuthToken();
 
     // Return the user information and token as the response
     return NextResponse.json(
@@ -36,10 +30,12 @@ export const POST = async (req: NextRequest) => {
         user: {
           email: user.email,
           id: user._id,
-          firstname: user.firstname, // Add firstname
-          lastname: user.lastname,   // Add lastname
+          firstName: user.firstName, // Ensure this matches your schema
+          lastName: user.lastName, // Ensure this matches your schema
+          role: user.role, // Include role
         },
         token,
+        redirectUrl: user.role === "admin" ? "/admin" : "/user", // Send redirect URL to frontend
       },
       { status: 200 }
     );

@@ -8,6 +8,7 @@ interface IUser extends Document {
   lastName: string;
   email: string;
   password: string;
+  role: "user" | "admin"; // Role field
   generateAuthToken(): string; // JWT method
   comparePassword(candidatePassword: string): Promise<boolean>; // Password comparison method
 }
@@ -19,6 +20,7 @@ const userSchema = new Schema<IUser>(
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    role: { type: String, enum: ["user", "admin"], default: "user" }, // Default role is user
   },
   { timestamps: true }
 );
@@ -26,7 +28,8 @@ const userSchema = new Schema<IUser>(
 // Hash password before saving
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
-    this.password = await bcrypt.hash(this.password, 10);
+    const saltRounds = 10; // Number of rounds for salt generation
+    this.password = await bcrypt.hash(this.password, saltRounds);
   }
   next();
 });
@@ -41,9 +44,11 @@ userSchema.methods.generateAuthToken = function (): string {
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined");
   }
-  const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+  
+  const token = jwt.sign({ id: this._id, role: this.role }, process.env.JWT_SECRET, {
     expiresIn: "1h", // Token validity
   });
+  
   return token;
 };
 

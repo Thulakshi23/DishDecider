@@ -1,41 +1,51 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import User from "./User"; // Adjust the path based on your project structure
+import { NextRequest, NextResponse } from "next/server";
+import User from "../models/User";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"; // Import JWT for token generation
+import dbConnect from "../../../config/db";
+import jwt from "jsonwebtoken";
 
-export interface LoginInput {
-  email: string;
-  password: string;
-}
+export const POST = async (req: NextRequest) => {
+  try {
+    const body = await req.json();
+    const { email, password } = body;
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "POST") {
-    const { email, password }: LoginInput = req.body;
+    await dbConnect();
 
-    try {
-      // Find the user by email
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      // Compare the provided password with the stored hashed password
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(401).json({ message: "Incorrect password" });
-      }
-
-      // Generate an authentication token
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'your_secret_key', { expiresIn: '1h' });
-
-      // Return user information and token (only expose necessary user fields)
-      return res.status(200).json({ user: { email: user.email, id: user._id }, token });
-    } catch (error) {
-      console.error(error); // Log the error for debugging
-      return res.status(500).json({ message: "Internal server error" });
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+
+    // Check password
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return NextResponse.json({ message: "Incorrect password" }, { status: 400 });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET as string, {
+      expiresIn: "1h",
+    });
+
+    return NextResponse.json(
+      {
+        message: "Login successful",
+        user: {
+          id: user._id,
+          email: user.email,
+          firstname: user.firstName, // Make sure to use 'firstName' to match your model
+          lastname: user.lastName, // Use 'lastName' here too
+          role: user.role, 
+        },
+        token,
+        redirectUrl: user.role === "admin" ? "/admin" : "/user", // Send redirect URL to frontend
+      },
+      { status: 200 }
+    );
+
+  } catch (error) {
+    console.error("Login Error:", error);
+    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
   }
-}
+};
