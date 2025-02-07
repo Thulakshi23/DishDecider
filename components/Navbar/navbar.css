@@ -4,7 +4,7 @@
   justify-content: space-between; /* Distribute space between logo and nav links */
   align-items: center; /* Vertically center the content */
   padding: 15px 30px;
-  background-color: #fc3132;
+  background-color: #ff0000;
   box-shadow: 0 4px 6px rgba(190, 40, 40, 0.1);
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
@@ -38,14 +38,6 @@
 .nav-link.active {
   background-color: white; /* Light golden background on hover */
   color: #fc3132; /* Golden text color */
-}
-
-
-/* Search and login container */
-.search-login {
-  display: flex;
-  align-items: center;
-  gap: 15px;
 }
 
 /* Login link styling */
@@ -93,19 +85,25 @@
   transform: scale(1.15); /* More prominent hover effect */
 }
 
-/* Logout button styling */
-.logout-btn {
-  background-color: #dc3545;
-  color: white;
-  font-weight: 600;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+
+.logout-button {
+  background-color: #fc3132; /* Match navbar background color */
+  color: white; /* White text */
+  font-size: 1.2rem; /* Match font size of links */
+  font-weight: bold; /* Bold text */
+  padding: 10px 15px; /* Consistent padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Slightly rounded corners */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Transition effects */
 }
 
-.logout-btn:hover {
-  background-color: #b21f2d;
-  transform: scale(1.1);
+.logout-button:hover {
+  background-color: white; /* Light background on hover */
+  color: #fc3132; /* Text color on hover */
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+.logout-button:active {
+  transform: scale(0.95); /* Slight shrink on click */
 }

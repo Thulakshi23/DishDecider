@@ -1,13 +1,13 @@
 import React from 'react';
 import './footer.css'; // Import the CSS file
 import Image from 'next/image';
-import logo from '../../public/assets/Teller Besteck Grillen Einladung.png'; // Correct logo path
+import logo from '../../public/assets/food.png'; // Correct logo path
 
 const Footer = () => {
   return (
     <footer className="footer">
       <Image src={logo} alt="DishDecider Logo" className="footer-logo" width={100} height={50} />
-      <p className="footer-paragraph">© 2024 DishDecider.com</p>
+      <p className="footer-paragraph">© 2025 dishdecider.com</p>
       <div className="social-links">
         <a
           href="https://www.facebook.com/yourpage"

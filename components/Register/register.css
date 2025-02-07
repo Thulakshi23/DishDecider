@@ -98,3 +98,16 @@
     color: black;
   }
   
+  .back-to-login {
+  display: block;
+  margin-top: 15px;
+  font-size: 1rem;
+  color:yellow;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.back-to-login:hover {
+  color: #ffdd57;
+  text-decoration: underline;
+}

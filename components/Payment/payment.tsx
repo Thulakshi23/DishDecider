@@ -38,7 +38,7 @@ const Paid: React.FC = () => {
         transition={{ duration: 0.5 }}
       >
         <h1 className="paid-title">Payment for {plan}</h1>
-        <p className="paid-price">Amount: ${price}</p>
+        <p className="paid-price">Amount: Rs{price}</p>
         <p className="paid-description">Choose your payment method below:</p>
 
         <div className="payment-options">
@@ -92,7 +92,7 @@ const Paid: React.FC = () => {
               <label>Card Holder Name</label>
               <input 
                 type="text" 
-                placeholder="KaradiMama" 
+                placeholder="Hari Kumar" 
                 value={cardHolderName} 
                 onChange={(e) => setCardHolderName(e.target.value)} 
               />
@@ -140,7 +140,7 @@ const Paid: React.FC = () => {
             <p>Use the following details to complete your bank transfer:</p>
             <p><strong>Account Name:</strong> Dish Decider Inc.</p>
             <p><strong>Account Number:</strong> 123456789</p>
-            <p><strong>Bank Name:</strong> Karadi Bank</p>
+            <p><strong>Bank Name:</strong> BOC Bank</p>
             <motion.button className="confirm-button" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               I have transferred
             </motion.button>

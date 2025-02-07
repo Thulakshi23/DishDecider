@@ -44,9 +44,9 @@
   border-bottom: 4px solid var(--primary-color); /* Underline effect for focus */
   display: inline-block;
   padding-bottom: 5px;
+  position: relative; /* Ensure it is above the overlay */
+  z-index: 2; /* Bring it above the overlay */
 }
-
-
 
 /* Plans Grid */
 .plans-grid {
@@ -55,6 +55,8 @@
   gap: 20px;
   width: 100%;
   max-width: 1000px;
+  position: relative; /* Ensure it is above the overlay */
+  z-index: 2; /* Bring it above the overlay */
 }
 
 /* Individual Plan Card */
