@@ -4,17 +4,16 @@ import "./contact.css";
 import "react-toastify/dist/ReactToastify.css"; // Import toast styles
 import { toast } from "react-toastify";
 
-
 const ContactUs: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
-  
+  const [message, setMessage] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!name || !email || !phone) {
+    if (!name || !email || !phone || !message) {
       toast.error("All fields are required ");
       return;
     }
@@ -23,7 +22,7 @@ const ContactUs: React.FC = () => {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone }),
+        body: JSON.stringify({ name, email, phone, message }),
       });
 
       if (response.ok) {
@@ -31,6 +30,7 @@ const ContactUs: React.FC = () => {
         setName("");
         setEmail("");
         setPhone("");
+        setMessage("");
       } else {
         toast.error("Failed to send message. Please try again later. ❌");
       }
@@ -105,6 +105,20 @@ const ContactUs: React.FC = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
+
+          <label htmlFor="contact-message" className="label">
+            Message:
+          </label>
+          <textarea
+            id="contact-message"
+            name="contact-message"
+            required
+            className="input textarea"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={4}
+            placeholder="Enter your question or message here..."
+          ></textarea>
 
           <motion.button
             type="submit"

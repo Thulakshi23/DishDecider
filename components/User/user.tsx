@@ -233,7 +233,7 @@ const UserPage: React.FC = () => {
           className={`${styles.tabButton} ${activeTab === "settings" ? styles.active : ""}`}
           onClick={() => setActiveTab("settings")}
         >
-          Settings
+          Profile
         </button>
       </div>
 

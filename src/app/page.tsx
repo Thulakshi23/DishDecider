@@ -9,7 +9,6 @@ const HomePage = () => {
     <div>
       <Navbar />
       <Hero />
-      <ImageUploader /> {/* Add the ImageUploader component here */}
       <Footer />
     </div>
   );

@@ -152,7 +152,7 @@ const Admin = () => {
                     <td>{user.firstName}</td>
                     <td>{user.lastName}</td>
                     <td>{user.email}</td>
-                    <td>{user.phoneNumber}</td>
+                    {/* <td>{user.phoneNumber}</td> */}
                     <td>
                       <button onClick={() => handleDeleteUser(user._id)} className={styles.deleteButton}>
                         Delete
