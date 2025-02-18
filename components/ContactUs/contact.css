@@ -1,15 +1,27 @@
 .contact-us-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  padding: 20px;
+  color: #fff; /* Ensures text remains visible */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  padding: 20px;
-  color: #fff; /* Ensures text is visible on the background */
+  overflow: hidden;
+  background-color: #262626;
+}
+
+/* Background overlay to reduce opacity */
+
+
+/* Ensures content stays above the overlay */
+.contact-us-page * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Heading styling */
@@ -21,19 +33,19 @@
 
 /* Contact box styling */
 .contact-box {
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for the form */
-  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.75); /* Slightly darker for better contrast */
+  padding: 25px;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
   width: 90%;
-  max-width: 400px;
+  max-width: 420px;
 }
 
 /* Form layout */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 
 /* Label styling */
@@ -45,27 +57,55 @@
 /* Input field styling */
 .input {
   padding: 12px 15px;
-  border: 1px solid #444;
+  border: 1px solid #666;
   border-radius: 6px;
   font-size: 1rem;
   color: #f8f9fa;
-  background-color: #292b2c;
+  background-color: rgba(41, 43, 44, 0.85); /* Slight transparency for input fields */
   outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Input focus effect */
+.input:focus {
+  border-color: #DE7C7D;
+  background-color: rgba(41, 43, 44, 1);
 }
 
 /* Submit button styling */
 .submit-button {
-  padding: 10px;
-  background-color: #28a745;
+  padding: 12px;
+  background-color: #AF1740;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 /* Submit button hover effect */
 .submit-button:hover {
-  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .heading {
+    font-size: 2rem;
+  }
+
+  .contact-box {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .input {
+    font-size: 0.9rem;
+  }
+
+  .submit-button {
+    font-size: 0.9rem;
+  }
 }

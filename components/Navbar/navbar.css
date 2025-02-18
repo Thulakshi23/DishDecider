@@ -4,11 +4,14 @@
   justify-content: space-between; /* Distribute space between logo and nav links */
   align-items: center; /* Vertically center the content */
   padding: 15px 30px;
-  background-color: #ff0000;
-  box-shadow: 0 4px 6px rgba(190, 40, 40, 0.1);
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+  background-color: #740938; /* Dark blue-gray with transparency */
+  backdrop-filter: blur(10px); /* Adds a blur effect to the background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+  position: relative; /* Make navbar sticky */
+  top: 0; /* Stick to the top */
+  z-index: 1000; /* Ensure it stays above other content */
 }
-
 
 /* Navigation links container */
 .nav-links {
@@ -26,36 +29,37 @@
   text-decoration: none;
   color: white;
   font-size: 1.2rem; /* Slightly larger font for visibility */
-  font-weight: bold;
+  font-weight: 500; /* Medium weight for a clean look */
   letter-spacing: 0.5px;
   padding: 10px 15px; /* Add padding for better clickability */
   border-radius: 5px; /* Slightly rounded corners */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 /* Hover effect */
 .nav-link:hover,
 .nav-link.active {
-  background-color: white; /* Light golden background on hover */
-  color: #fc3132; /* Golden text color */
+  background-color:#AF1740 ; /* Slightly lighter blue-gray with transparency */
+  color: #ffffff; /* Keep text white */
+  transform: translateY(-2px); /* Slight lift effect */
 }
 
 /* Login link styling */
 .login-link {
   text-decoration: none;
-  color: #333;
+  color: #2c3e50; /* Dark blue-gray text */
   font-weight: 600;
   padding: 10px 25px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(221, 221, 221, 0.3); /* Semi-transparent border */
   border-radius: 30px;
-  background-color: #f9f9f9;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .login-link:hover {
-  background-color: green;
+  background-color:#AF1740 ; 
   color: white;
-  transform: scale(1.1); /* Slightly larger on hover */
+  transform: scale(1.05); /* Slightly larger on hover */
 }
 
 /* Profile container styling (for logged-in users) */
@@ -71,7 +75,7 @@
   height: 40px;
   font-size: 1.2rem; /* Adjust font size */
   border-radius: 50%;
-  background-color: #007bff;
+  background-color:#CC2B52; /* Turquoise green with transparency */
   color: white;
   display: flex;
   justify-content: center;
@@ -81,16 +85,15 @@
 }
 
 .profile-icon:hover {
-  background-color: #0056b3;
   transform: scale(1.15); /* More prominent hover effect */
 }
 
-
+/* Logout button styling */
 .logout-button {
-  background-color: #fc3132; /* Match navbar background color */
+  background-color: #AF1740;
   color: white; /* White text */
   font-size: 1.2rem; /* Match font size of links */
-  font-weight: bold; /* Bold text */
+  font-weight: 500; /* Medium weight */
   padding: 10px 15px; /* Consistent padding */
   border: none; /* Remove border */
   border-radius: 5px; /* Slightly rounded corners */
@@ -99,9 +102,11 @@
 }
 
 .logout-button:hover {
-  background-color: white; /* Light background on hover */
-  color: #fc3132; /* Text color on hover */
+  color: white; /* Keep text white */
   transform: scale(1.05); /* Slightly increase size on hover */
+  background-color: #AF1740;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  
 }
 
 .logout-button:active {

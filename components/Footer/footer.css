@@ -4,20 +4,34 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background-color: #ff0000;
+  background-color: #740938; /* Dark blue-gray with transparency */
+  backdrop-filter: blur(10px); /* Adds a blur effect to the background */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: white;
+  position: relative;
+  z-index: 1000; /* Ensure it stays above other content */
 }
 
 .footer-logo {
   max-width: 80px;
   height: auto;
+  transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+.footer-logo:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
 .footer-paragraph {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
+  color: rgba(255, 255, 255, 0.9); /* Slightly transparent white text */
+  transition: color 0.3s ease; /* Smooth text color transition */
+}
+
+.footer-paragraph:hover {
+  color: #1abc9c; /* Turquoise green on hover */
 }
 
 .social-links {
@@ -41,21 +55,32 @@
   height: 40px;
   border-radius: 50%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  background-color: rgba(26, 188, 156, 0.9); /* Turquoise green with transparency */
+  color: white; /* White icon color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .social-icon:hover {
   transform: scale(1.2);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background-color: rgba(22, 160, 133, 0.9); /* Darker turquoise with transparency */
 }
 
 @media (max-width: 768px) {
   .footer {
     flex-direction: column;
     text-align: center;
+    gap: 15px; /* Add spacing between elements */
   }
 
   .social-links {
     margin-top: 10px;
+  }
+
+  .footer-logo {
+    margin-bottom: 10px; /* Add spacing below the logo */
   }
 }

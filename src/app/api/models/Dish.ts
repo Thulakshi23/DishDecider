@@ -1,15 +1,25 @@
-import mongoose, { Schema, model, Document } from "mongoose";
+import mongoose, { Schema, Document, models } from "mongoose";
 
-export interface DishDocument extends Document {
+// Define the TypeScript interface for a Meal document
+export interface IMeal extends Document {
   name: string;
-  description: string;
+  category: string;
   ingredients: string[];
+  image: string;
 }
 
-const dishSchema = new Schema<DishDocument>({
-  name: { type: String, required: true },
-  description: { type: String, required: true },
-  ingredients: [{ type: String, required: true }],
-});
+// Define the Mongoose Schema
+const MealSchema = new Schema<IMeal>(
+  {
+    name: { type: String, required: true },
+    category: { type: String, required: true },
+    ingredients: { type: [String], required: true },
+    image: { type: String, required: true }, // Store Cloudinary or other image URL
+  },
+  { timestamps: true }
+);
 
-export default mongoose.models.Dish || model<DishDocument>("Dish", dishSchema);
+// Prevent model re-registration in Next.js
+const Meal = models.Meal || mongoose.model<IMeal>("Meal", MealSchema);
+
+export default Meal;

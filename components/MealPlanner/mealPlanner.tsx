@@ -1,16 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./mealPlanner.css";
 
 const MealPlanner: React.FC = () => {
-  const mealImages = [
-    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622732/pexels-catscoming-674574_fhricj.jpg",
-    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622732/pexels-catscoming-674574_fhricj.jpg",
-    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622731/pexels-fotios-photos-1358389_tvzxdm.jpg",
-    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622732/pexels-alesiakozik-6544243_ird6qq.jpg",
-    "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622731/pexels-fotios-photos-1358389_tvzxdm.jpg",
-  ];
+  const [dishes, setDishes] = useState<{ imageUrl: string; name: string }[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const backgroundImageUrl =
     "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737558632/samples/food/fish-vegetables.jpg";
@@ -25,6 +21,25 @@ const MealPlanner: React.FC = () => {
     Sunday: [],
   });
 
+  // Fetch dishes from backend
+  useEffect(() => {
+    const fetchDishes = async () => {
+      try {
+        const response = await fetch("/api/dishes");
+        if (!response.ok) throw new Error("Failed to fetch dishes");
+        const data = await response.json();
+        setDishes(data); // Expecting an array of { imageUrl, name }
+      } catch (err) {
+        setError("Failed to load dishes.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDishes();
+  }, []);
+
   const handleMealClick = (day: string, index: number) => {
     setSelectedMeals((prevSelected) => ({
       ...prevSelected,
@@ -38,9 +53,7 @@ const MealPlanner: React.FC = () => {
     try {
       const response = await fetch("/api/savedMeals", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ meals: selectedMeals }),
       });
 
@@ -75,22 +88,32 @@ const MealPlanner: React.FC = () => {
       <h1>Weekly Meal Planner</h1>
       <div className="main-section">
         <div className="left-panel">
-          {Object.keys(selectedMeals).map((day) => (
-            <div key={day} className="day-section">
-              <h2>{day}</h2>
-              <div className="grid-container">
-                {mealImages.map((image, index) => (
-                  <div className="grid-item" key={index} onClick={() => handleMealClick(day, index)}>
-                    <img
-                      src={image}
-                      alt={`Meal ${index + 1}`}
-                      className={`meal-image ${selectedMeals[day].includes(index) ? "selected" : ""}`}
-                    />
-                  </div>
-                ))}
+          {error && <p className="error-message">{error}</p>}
+          {loading ? (
+            <p>Loading dishes...</p>
+          ) : (
+            Object.keys(selectedMeals).map((day) => (
+              <div key={day} className="day-section">
+                <h2>{day}</h2>
+                <div className="grid-container">
+                  {dishes.map((dish, index) => (
+                    <div
+                      className="grid-item"
+                      key={index}
+                      onClick={() => handleMealClick(day, index)}
+                    >
+                      <img
+                        src={dish.imageUrl}
+                        alt={dish.name}
+                        className={`meal-image ${selectedMeals[day].includes(index) ? "selected" : ""}`}
+                      />
+                      <p className="meal-name">{dish.name}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
         <div className="right-panel">
           <div className="preview-box">
@@ -99,7 +122,7 @@ const MealPlanner: React.FC = () => {
               {Object.entries(selectedMeals).map(([day, meals]) =>
                 meals.length > 0 ? (
                   <li key={day}>
-                    <strong>{day}:</strong> {meals.map((mealIndex) => `Meal ${mealIndex + 1}`).join(", ")}
+                    <strong>{day}:</strong> {meals.map((mealIndex) => dishes[mealIndex]?.name).join(", ")}
                   </li>
                 ) : null
               )}

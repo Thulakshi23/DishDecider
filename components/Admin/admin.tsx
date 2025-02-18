@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router'; // Import useRouter for redirection
 import styles from './Admin.module.css';
 
-// Define User and Dish interfaces
+// Define User, Dish, and Payment interfaces
 interface User {
   _id: string; // MongoDB ObjectId as a string
   firstName: string;
@@ -21,6 +21,16 @@ interface Dish {
   userId: string; // Reference to the user who created the dish
 }
 
+interface Payment {
+  _id: string; // MongoDB ObjectId as a string
+  userId: string; // Reference to the user who made the payment
+  planName: string;
+  price: number;
+  paymentId: string;
+  status: string; // Payment status (e.g., completed, failed)
+  timestamp: Date; // Timestamp of the payment
+}
+
 // Define the API response types
 interface FetchUsersResponse {
   users: User[];
@@ -30,12 +40,17 @@ interface FetchDishesResponse {
   dishes: Dish[];
 }
 
+interface FetchPaymentsResponse {
+  payments: Payment[];
+}
+
 const Admin = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [dishes, setDishes] = useState<Dish[]>([]);
+  const [payments, setPayments] = useState<Payment[]>([]); // State for payments
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'users' | 'dishes'>('users');
+  const [activeTab, setActiveTab] = useState<'users' | 'dishes' | 'payments'>('users'); // Include payments tab
   const router = useRouter(); // Initialize router for redirection
 
   const fetchData = async () => {
@@ -43,10 +58,14 @@ const Admin = () => {
     setError(null); // Reset error state
 
     try {
-      const response = await axios.get<FetchUsersResponse>('/api/admin'); // Adjust the API path as needed
-      setUsers(response.data.users);
+      const usersResponse = await axios.get<FetchUsersResponse>('/api/admin'); // Adjust the API path as needed
+      setUsers(usersResponse.data.users);
+      
       const dishesResponse = await axios.get<FetchDishesResponse>('/api/dish'); // Fetch dishes
       setDishes(dishesResponse.data.dishes);
+      
+      const paymentsResponse = await axios.get<FetchPaymentsResponse>('/api/payments'); // Fetch payments
+      setPayments(paymentsResponse.data.payments);
     } catch (err: any) {
       console.error("Fetch error:", err); // Log the error for debugging
       setError(err.response?.data?.error || 'Error fetching data'); // Show detailed error if available
@@ -66,8 +85,7 @@ const Admin = () => {
     } else {
         fetchData(); // Fetch only if role is admin
     }
-}, [router]);
-
+  }, [router]);
 
   const handleDeleteUser = async (id: string) => {
     const confirmDelete = confirm("Are you sure you want to delete this user?"); // Confirmation dialog
@@ -109,6 +127,26 @@ const Admin = () => {
     }
   };
 
+  const handleDeletePayment = async (id: string) => {
+    const confirmDelete = confirm("Are you sure you want to delete this payment?"); // Confirmation dialog
+    if (!confirmDelete) return;
+
+    // Optimistically remove the payment from state
+    setPayments((prevPayments) => prevPayments.filter(payment => payment._id !== id));
+
+    try {
+      const response = await axios.delete(`/api/payments?id=${id}`); // Adjust the API path for deleting payment
+      if (response.status !== 200) {
+        setError('Failed to delete payment.'); // Show error if not successful
+      }
+    } catch (err) {
+      console.error("Delete error:", err); // Log the error for debugging
+      setError('Error deleting payment');
+      // Re-fetch payments to restore optimistic update
+      fetchData();
+    }
+  };
+
   if (loading) return <p className={styles.loading}>Loading...</p>;
   if (error) return <p className={styles.error}>{error}</p>;
 
@@ -127,6 +165,12 @@ const Admin = () => {
           onClick={() => setActiveTab('dishes')}
         >
           Dishes
+        </button>
+        <button
+          className={`${styles.tab} ${activeTab === 'payments' ? styles.activeTab : ''}`}
+          onClick={() => setActiveTab('payments')}
+        >
+          Payments
         </button>
       </div>
 
@@ -170,7 +214,7 @@ const Admin = () => {
             </tbody>
           </table>
         </div>
-      ) : (
+      ) : activeTab === 'dishes' ? (
         <div>
           <h2 className={styles.subtitle}>Dishes</h2>
           <table className={styles.table}>
@@ -200,6 +244,50 @@ const Admin = () => {
                 <tr>
                   <td colSpan={4} className={styles.noData}>
                     No dishes found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div>
+          <h2 className={styles.subtitle}>Payments</h2>
+          <table className={styles.table}>
+            <thead>
+              <tr className={styles.tableHeader}>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Plan Name</th>
+                <th>Price</th>
+                <th>Payment ID</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {payments.length > 0 ? (
+                payments.map((payment) => (
+                  <tr key={payment._id} className={styles.tableRow}>
+                    <td>{payment._id}</td>
+                    <td>{payment.userId}</td>
+                    <td>{payment.planName}</td>
+                    <td>{payment.price}</td>
+                    <td>{payment.paymentId}</td>
+                    <td>{payment.status}</td>
+                    <td>{new Date(payment.timestamp).toLocaleString()}</td>
+                    <td>
+                      <button onClick={() => handleDeletePayment(payment._id)} className={styles.deleteButton}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={8} className={styles.noData}>
+                    No payments found.
                   </td>
                 </tr>
               )}

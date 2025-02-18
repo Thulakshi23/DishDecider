@@ -2,11 +2,12 @@
 .container {
   padding: 20px;
   min-height: 100vh;
-  background: url('https://your-cloudinary-link.com/food-bg.jpg') center/cover no-repeat, rgba(0, 0, 0, 0.8); /* Added black background */
+  /* background: url('https://your-cloudinary-link.com/food-bg.jpg') center/cover no-repeat, rgba(0, 0, 0, 0.8); Added black background */
   display: flex;
   flex-direction: column;
   align-items: center;
   backdrop-filter: blur(4px);
+  background-color: #262626;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
@@ -15,12 +16,10 @@
   font-size: 32px;
   font-weight: bold;
   color: #ffffff;
-  background: rgba(0, 0, 0, 0.6);
+  border-bottom: 4px solid #CC2B52;
   padding: 10px 20px;
-  border-radius: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Tabs */
@@ -33,26 +32,24 @@
 .tab {
   padding: 14px 28px;
   border: none;
-  background: linear-gradient(135deg, #0070f3, #00c6ff);
+  background:  #CC2B52;
   color: white;  color: white;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 4px 8px rgba(255, 69, 0, 0.3);
 }
 
 .tab:hover {
-  background: linear-gradient(135deg, #ff6347, #ff2400);
   transform: scale(1.05);
+  background-color:#740938;
 }
 
 .activeTab {
-  background: linear-gradient(135deg, #0070f3, #0051a3);
+  background:#740938 ;
   color: white;
   font-weight: bold;
-  box-shadow: 0px 4px 12px rgba(0, 112, 243, 0.3);
 }
 
 /* Subtitle */
@@ -77,7 +74,7 @@
 
 /* Table Headers */
 .tableHeader {
-  background: linear-gradient(135deg, #0070f3, #00c6ff);
+  background:#AF1740;
   color: white;  color: white;
   font-weight: bold;
   text-align: left;
@@ -142,12 +139,8 @@
 
 /* Delete Button */
 .deleteButton {
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  background-color: #AF1740; 
   color: white;
-  box-shadow: 0px 4px 8px rgba(231, 76, 60, 0.3);
 }
 
-.deleteButton:hover {
-  background: linear-gradient(135deg, #d63031, #b33939);
-  transform: scale(1.1);
-}
+

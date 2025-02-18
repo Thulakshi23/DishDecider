@@ -17,7 +17,6 @@ export async function POST(req: NextRequest) {
     const newDish = new DishModel({
       name,
       description,
-      price,
       category,
       imageUrl,
     });

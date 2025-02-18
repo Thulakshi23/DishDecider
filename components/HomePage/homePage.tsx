@@ -9,6 +9,7 @@ const HomePage: React.FC = () => {
   const [showAdditionalIngredients, setShowAdditionalIngredients] = useState(false);
   const [recipes, setRecipes] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
@@ -202,23 +203,51 @@ const HomePage: React.FC = () => {
         </aside>
 
         {/* Recipes Section */}
+        
         <div className="recipes-section">
-          <h2>Recipes</h2>
-          {error && <p className="error-message">{error}</p>}
-          <ul className="recipes-list">
-            {recipes.length > 0 ? (
-              recipes.map((recipe, index) => (
-                <li key={index}>
-                  <h3>{recipe.title}</h3>
-                  <p><strong>Ingredients:</strong> {recipe.ingredients.join(', ')}</p>
-                  <p><strong>Instructions:</strong> {recipe.instructions}</p>
-                </li>
-              ))
-            ) : (
-              <li></li>
-            )}
-          </ul>
-        </div>
+  <h2>Recipes</h2>
+  {error && <p className="error-message">{error}</p>}
+  {isLoading ? (
+    <motion.div
+      className="loading-message"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <p>🍳 Cooking up something delicious... 🍳</p>
+      <motion.div
+        className="spinner"
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+      >
+        🥄
+      </motion.div>
+    </motion.div>
+  ) : (
+    <ul className="recipes-list">
+      {recipes.length > 0 ? (
+        recipes.map((recipe, index) => (
+          <li key={index} className="recipe-item">
+            <img
+              src={recipe.image || "/default-recipe.jpg"} // Default image fallback
+              alt={recipe.title}
+              className="recipe-image"
+            />
+            <div className="recipe-details">
+              <h3>{recipe.title}</h3>
+              <p><strong>Ingredients:</strong> {recipe.ingredients.join(', ')}</p>
+              <p><strong>Instructions:</strong> {recipe.instructions}</p>
+            </div>
+          </li>
+        ))
+      ) : (
+        <li>No recipes found. Try selecting different ingredients!</li>
+      )}
+    </ul>
+  )}
+</div>
+
+  
       </div>
     </div>
   );

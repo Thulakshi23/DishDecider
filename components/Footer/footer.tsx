@@ -1,7 +1,7 @@
 import React from 'react';
 import './footer.css'; // Import the CSS file
 import Image from 'next/image';
-import logo from '../../public/assets/food.png'; // Correct logo path
+import logo from '../../public/assets/Copy of food.png'; // Correct logo path
 
 const Footer = () => {
   return (

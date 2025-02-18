@@ -1,10 +1,7 @@
-/* upgrade.css */
-
-/* CSS Variables for Consistent Styling */
 :root {
-  --primary-color: #007bff;
-  --secondary-color: #333;
-  --background-color: #f8f9fa;
+  --primary-color: #CC2B52;
+  --secondary-color: #AF1740;
+  --background-color: #262626;
   --card-background: white;
   --card-border: #ddd;
   --text-color-dark: #222;
@@ -17,35 +14,29 @@
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-/* General Page Styles */
+/* Payment container */
 .payment-container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url("https://res.cloudinary.com/dgvx2zkcb/image/upload/v1738385001/pexels-goumbik-616401_nrshx8.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  min-height: 100vh;
   padding: 20px;
+  background-color: var(--background-color);
 }
 
 /* Heading */
 .payment-title {
-  font-size: 3.5rem; /* Increase font size */
+  font-size: 3rem;
   font-weight: bold;
-  color: var(--secondary-color); /* Keep the existing color */
-  text-transform: uppercase; /* Make text uppercase for emphasis */
-  letter-spacing: 3px; /* Add more spacing between letters */
-  margin-bottom: 150px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 100px;
   text-align: center;
-  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Add a stronger shadow effect */
-  border-bottom: 4px solid var(--primary-color); /* Underline effect for focus */
-  display: inline-block;
-  padding-bottom: 5px;
-  position: relative; /* Ensure it is above the overlay */
-  z-index: 2; /* Bring it above the overlay */
+  text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.6);
+  border-bottom: 4px solid var(--primary-color);
+  padding: 10px 20px;
 }
 
 /* Plans Grid */
@@ -55,27 +46,23 @@
   gap: 20px;
   width: 100%;
   max-width: 1000px;
-  position: relative; /* Ensure it is above the overlay */
-  z-index: 2; /* Bring it above the overlay */
 }
 
-/* Individual Plan Card */
+/* Plan Card */
 .plan-card {
   background: var(--card-background);
   border: 1px solid var(--card-border);
   border-radius: 10px;
   padding: 40px;
   text-align: center;
-  margin-bottom: 150px;
-
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Hover effect for plan card */
 .plan-card:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
-  box-shadow: 0 8px 16px var(--hover-color); /* Enhance shadow */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px var(--hover-color);
 }
 
 /* Plan Title */
@@ -115,6 +102,12 @@
 
 /* Button Hover Effect */
 .plan-button:hover {
-  background-color: #555; /* Darker shade for hover */
-  transform: translateY(-2px); /* Slight lift effect */
+  transform: translateY(-2px);
+  background-color: var(--primary-color);
+}
+
+/* Disabled Button */
+.plan-button:disabled {
+  background: #888;
+  cursor: not-allowed;
 }

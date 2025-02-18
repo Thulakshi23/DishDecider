@@ -44,7 +44,7 @@ const ContactUs: React.FC = () => {
       id="contact-us-page"
       className="contact-us-page"
       style={{
-        backgroundImage: `url('https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622733/Backround3_m2rxq9.jpg')`,
+        // backgroundImage: `url('https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622733/Backround3_m2rxq9.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",

@@ -8,24 +8,9 @@
   color: black; /* Text color */
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   overflow: hidden; /* Prevent overflow issues */
-}
+  background-color: #262626; /* Adjust the rgba value for desired opacity and color */
 
-#home-page::before {
-  content: ''; /* Required for pseudo-elements */
-  position: absolute; /* Position it absolutely within the parent */
-  top: 0; /* Align it to the top */
-  left: 0; /* Align it to the left */
-  right: 0; /* Stretch to the right */
-  bottom: 0; /* Stretch to the bottom */
-  background-image: url('https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622732/pexels-adonyi-foto-1400172_cipkpx.jpg'); /* Cloudinary image URL */
-  background-size: cover; /* Ensure the image covers the entire background */
-  background-position: center; /* Center the background image */
-  background-attachment: fixed; /* Keep the background fixed during scroll */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  opacity: 0.9; /* Adjust the opacity value (0 to 1) */
-  z-index: -1; /* Place it behind other content */
 }
-
 
 /* Layout container */
 .container {

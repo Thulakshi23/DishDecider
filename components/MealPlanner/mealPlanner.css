@@ -9,6 +9,7 @@
   height: 100vh; /* Set height to fill the viewport */
   display: flex; /* Use flexbox for layout */
   flex-direction: column; /* Arrange items vertically */
+  
   overflow: hidden; /* Hide overflow for the pseudo-element */
 }
 
@@ -19,7 +20,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Adjust the rgba value for desired opacity and color */
+  background-color: #262626; /* Adjust the rgba value for desired opacity and color */
   z-index: 1; /* Ensure it is below the content but above the background */
 }
 

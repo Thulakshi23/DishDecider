@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation"; // Import usePathname to detect the current path
 import "./navbar.css"; // Import the CSS file
-import logo from "../../public/assets/food.png"; // Correct logo path
+import logo from "../../public/assets/Copy of food.png"; // Correct logo path
 import React, { useState, useEffect } from "react"; // Import useState and useEffect for state management
 
 const Navbar: React.FC = () => {
