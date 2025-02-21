@@ -61,8 +61,8 @@ export async function DELETE(req: NextRequest) {
     }
 
     return NextResponse.json({ message: "User deleted successfully" }, { status: 200 });
-  } catch (error: any) {
-    console.error("Error deleting user:", error.message);
+  } catch (error) {
+    console.error("Error deleting user:", (error as Error).message);
     return NextResponse.json({ error: "Failed to delete user" }, { status: 500 });
   }
 }

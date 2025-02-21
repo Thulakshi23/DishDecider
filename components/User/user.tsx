@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import styles from "./UserPage.module.css";
 
 // Define the structure of the user data we expect to receive

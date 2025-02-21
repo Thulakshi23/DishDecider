@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 }
 
 // Get all dishes
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     // Connect to the database
     await dbConnect();

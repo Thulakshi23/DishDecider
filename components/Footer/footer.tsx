@@ -2,8 +2,10 @@ import React from 'react';
 import './footer.css'; // Import the CSS file
 import Image from 'next/image';
 import logo from '../../public/assets/Copy of food.png'; // Correct logo path
+import facebookIcon from '../../public/assets/fb.jpg'; // Replace with your local Facebook icon path
+import instagramIcon from '../../public/assets/insta.png'; // Replace with your local Instagram icon path
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <Image src={logo} alt="DishDecider Logo" className="footer-logo" width={100} height={50} />
@@ -16,10 +18,12 @@ const Footer = () => {
           rel="noreferrer"
           className="social-link"
         >
-          <img
-            src="https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622733/fb_fwfnd8.jpg" // Replace with your Cloudinary Facebook icon URL
+          <Image
+            src={facebookIcon} // Use the imported local Facebook icon
             alt="Facebook"
             className="social-icon"
+            width={24} // Specify the width
+            height={24} // Specify the height
           />
         </a>
         <a
@@ -29,10 +33,12 @@ const Footer = () => {
           aria-label="Instagram"
           className="social-link"
         >
-          <img
-            src="https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622733/insta_ey66qt.png" // Replace with your Cloudinary Instagram icon URL
+          <Image
+            src={instagramIcon} // Use the imported local Instagram icon
             alt="Instagram"
             className="social-icon"
+            width={24} // Specify the width
+            height={24} // Specify the height
           />
         </a>
       </div>

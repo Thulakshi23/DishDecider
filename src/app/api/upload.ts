@@ -17,8 +17,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         folder: 'user_profiles',
       });
       res.status(200).json({ url: result.secure_url });
-    } catch (error: any) {
-      res.status(500).json({ error: 'Image upload failed', details: error.message });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        res.status(500).json({ error: 'Image upload failed', details: error.message });
+      } else {
+        res.status(500).json({ error: 'Image upload failed', details: 'Unknown error' });
+      }
     }
   } else {
     res.status(405).json({ message: 'Method not allowed' });

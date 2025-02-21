@@ -1,6 +1,8 @@
 /* homePage.css */
 
 /* Background and page styling */
+
+
 #home-page {
   position: relative; /* Establish positioning context for the pseudo-element */
   min-height: 100vh; /* Set a minimum height to cover the viewport */

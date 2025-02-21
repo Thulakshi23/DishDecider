@@ -47,7 +47,7 @@ const MealPlanner: React.FC = () => {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await fetch("/api/dishes");
+        const response = await fetch("");
         if (!response.ok) throw new Error("Failed to fetch dishes");
         const data = await response.json();
         setDishes(data.length > 0 ? data : sampleDishes); // Use sample dishes if API returns empty

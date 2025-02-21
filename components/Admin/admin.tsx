@@ -152,9 +152,14 @@ const Admin = () => {
       if (response.status !== 200) {
         setError("Failed to delete payment");
       }
-    } catch (err: any) {
-      console.error("Delete error:", err.response?.data || err.message);
-      setError(err.response?.data?.error || "Error deleting payment");
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        console.error("Delete error:", err.response?.data || err.message);
+        setError(err.response?.data?.error || "Error deleting payment");
+      } else {
+        console.error("Delete error:", err);
+        setError("Error deleting payment");
+      }
       fetchData(); // Re-fetch payments
     }
     
