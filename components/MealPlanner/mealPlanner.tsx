@@ -11,6 +11,29 @@ const MealPlanner: React.FC = () => {
   const backgroundImageUrl =
     "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737558632/samples/food/fish-vegetables.jpg";
 
+  const sampleDishes = [
+    {
+      imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422958/Garlic_Butter_Chicken_with_Broccoli_junsvb.jpg",
+      name: "Garlic Butter Chicken",
+    },
+    {
+      imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422937/Eggplant_Tomato_Curry_wvym2i.jpg",
+      name: "Eggplant Tomato curry",
+    },
+    {
+      imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739423000/Vegetable_Stir-Fry_easgop.jpg",
+      name: "Vegetable Stir-Fry",
+    },
+    {
+      imageUrl:"https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622729/Tomato-Rice_v4v8mp.webp",
+      name: "Tomato rice",
+    },
+    {
+      imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422978/Jackfruit_Spinach_Stir-Fry_vocmoa.jpg",
+      name: "Jackfruit & Spinach Stir-Fry",
+    },
+  ];
+
   const [selectedMeals, setSelectedMeals] = useState<Record<string, number[]>>({
     Monday: [],
     Tuesday: [],
@@ -21,16 +44,16 @@ const MealPlanner: React.FC = () => {
     Sunday: [],
   });
 
-  // Fetch dishes from backend
   useEffect(() => {
     const fetchDishes = async () => {
       try {
         const response = await fetch("/api/dishes");
         if (!response.ok) throw new Error("Failed to fetch dishes");
         const data = await response.json();
-        setDishes(data); // Expecting an array of { imageUrl, name }
+        setDishes(data.length > 0 ? data : sampleDishes); // Use sample dishes if API returns empty
       } catch (err) {
-        setError("Failed to load dishes.");
+        setDishes(sampleDishes); // Use sample dishes on error
+        setError("");
         console.error(err);
       } finally {
         setLoading(false);
@@ -57,7 +80,7 @@ const MealPlanner: React.FC = () => {
         body: JSON.stringify({ meals: selectedMeals }),
       });
 
-      if (!response.ok) throw new Error("Failed to save meals.");
+      if (!response.ok) throw new Error("Failed to save mea.");
 
       const data = await response.json();
       console.log("Saved meals:", data);

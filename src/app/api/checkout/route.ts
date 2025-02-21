@@ -3,16 +3,29 @@ import Stripe from "stripe";
 import connectToDB from "@/config/db";
 import Payment from "../models/Payment";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+if (!stripeSecretKey) {
+  throw new Error("STRIPE_SECRET_KEY is missing in environment variables.");
+}
+
+if (!baseUrl) {
+  throw new Error("NEXT_PUBLIC_BASE_URL is missing in environment variables.");
+}
+
+const stripe = new Stripe(stripeSecretKey, {
   apiVersion: "2025-01-27.acacia",
 });
 
+// ✅ Type for checkout request
 interface CheckoutRequestBody {
   userId: string;
   plan: string;
   price: string;
 }
 
+// ✅ Handle Stripe Checkout
 export async function POST(req: NextRequest) {
   try {
     const body: CheckoutRequestBody = await req.json();
@@ -22,13 +35,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const formattedPrice = parseInt(price.replace(/Rs|,| /g, "")) * 100;
+    const formattedPrice = parseInt(price.replace(/Rs|,| /g, ""), 10) * 100;
+
     if (isNaN(formattedPrice) || formattedPrice <= 0) {
       return NextResponse.json({ error: "Invalid price format" }, { status: 400 });
     }
 
     const currency = "lkr"; // Change if needed
 
+    // ✅ Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -42,8 +57,8 @@ export async function POST(req: NextRequest) {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
+      success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/cancel`,
     });
 
     await connectToDB();
@@ -57,14 +72,15 @@ export async function POST(req: NextRequest) {
     });
 
     await newPayment.save();
+
     return NextResponse.json({ url: session.url });
-  } catch (error: any) {
-    console.error("Checkout error:", error);
-    return NextResponse.json({ error: error.message || "Something went wrong" }, { status: 500 });
+  } catch (error) {
+    console.error("Stripe Checkout Error:", error);
+    return NextResponse.json({ error: (error as Error).message || "Payment processing failed" }, { status: 500 });
   }
 }
 
-// ✅ Fetch All Payments or a Single Payment
+// ✅ Fetch All Payments or Single Payment
 export async function GET(req: NextRequest) {
   try {
     await connectToDB();
@@ -81,9 +97,9 @@ export async function GET(req: NextRequest) {
 
     const payments = await Payment.find();
     return NextResponse.json(payments);
-  } catch (error: any) {
-    console.error("Fetch error:", error);
-    return NextResponse.json({ error: error.message || "Something went wrong" }, { status: 500 });
+  } catch (error) {
+    console.error("Fetch Payment Error:", error);
+    return NextResponse.json({ error: (error as Error).message || "Failed to fetch payments" }, { status: 500 });
   }
 }
 
@@ -108,9 +124,9 @@ export async function PUT(req: NextRequest) {
     }
 
     return NextResponse.json(updatedPayment);
-  } catch (error: any) {
-    console.error("Update error:", error);
-    return NextResponse.json({ error: error.message || "Something went wrong" }, { status: 500 });
+  } catch (error) {
+    console.error("Update Payment Error:", error);
+    return NextResponse.json({ error: (error as Error).message || "Failed to update payment" }, { status: 500 });
   }
 }
 
@@ -131,8 +147,8 @@ export async function DELETE(req: NextRequest) {
     }
 
     return NextResponse.json({ message: "Payment deleted successfully" });
-  } catch (error: any) {
-    console.error("Delete error:", error);
-    return NextResponse.json({ error: error.message || "Something went wrong" }, { status: 500 });
+  } catch (error) {
+    console.error("Delete Payment Error:", error);
+    return NextResponse.json({ error: (error as Error).message || "Failed to delete payment" }, { status: 500 });
   }
 }

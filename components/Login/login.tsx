@@ -102,12 +102,9 @@ const Login: React.FC = () => {
           </div>
           <button type="submit" className="button">Login</button>
         </form>
-      
-        <Link href="/forgot-password">
-          <span className="forgot-password">Forgot password?</span>
-        </Link>
+    
         <p className="register-prompt">
-          Don't have an account yet?{' '}
+          Don&apos;t have an account yet?{' '}
           <Link href="/register">
             <span className="register-button">Register</span>
           </Link>

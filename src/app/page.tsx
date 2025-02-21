@@ -2,7 +2,6 @@
 import Navbar from '../../components/Navbar/navbar';
 import Hero from '../../components/HomePage/homePage';
 import Footer from '../../components/Footer/footer';
-import ImageUploader from '../../components/Imagge/ImageUploader'; // Import the ImageUploader component
 
 const HomePage = () => {
   return (

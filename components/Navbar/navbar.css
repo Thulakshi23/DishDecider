@@ -7,7 +7,7 @@
   background-color: #740938; /* Dark blue-gray with transparency */
   backdrop-filter: blur(10px); /* Adds a blur effect to the background */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   position: relative; /* Make navbar sticky */
   top: 0; /* Stick to the top */
   z-index: 1000; /* Ensure it stays above other content */
@@ -39,10 +39,15 @@
 /* Hover effect */
 .nav-link:hover,
 .nav-link.active {
-  background-color:#AF1740 ; /* Slightly lighter blue-gray with transparency */
-  color: #ffffff; /* Keep text white */
+  text-decoration: underline; /* Adds an underline effect */
+  text-underline-offset: 4px; /* Creates a slight gap between text and underline */
+  text-decoration-thickness: 2px; /* Makes the underline a bit thicker */
+  color: #CC2B52; /* Keep text white */
   transform: translateY(-2px); /* Slight lift effect */
+  transition: all 0.3s ease-in-out; /* Smooth transition effect */
 }
+
+
 
 /* Login link styling */
 .login-link {

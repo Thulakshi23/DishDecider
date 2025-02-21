@@ -2,17 +2,16 @@
 .userPage {
   margin: 0 auto;
   padding: 2rem;
-  background-color: #f9f9f9;
-  /* background-image: url('/assets/Background2.jpg'); Ensure the path is correct */
+  background-color: #262626;
   background-size: cover;
   background-position: center;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   min-height: 100vh;
   color: #333;
   font-family: 'Arial', sans-serif;
   overflow: hidden;
-  background-color: #262626;
+  min-width: none;
 }
 
 /* Loading State */
@@ -38,7 +37,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -57,15 +56,14 @@
   }
 }
 
-
 .userDetails {
   flex-grow: 1;
 }
 
 .userName {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin: 0;
-  color: #333;
+  color: #740938; /* Updated to match the color palette */
   font-weight: bold;
 }
 
@@ -89,20 +87,20 @@
   cursor: pointer;
   text-align: center;
   font-size: 1rem;
-  color: #fff9f9;
+  color: white;
   background-color: transparent;
   border: none;
   transition: all 0.3s ease;
 }
 
 .tabButton.active {
-  background: linear-gradient(135deg, #0070f3, #00c6ff);
+  background: linear-gradient(135deg, #AF1740, #CC2B52); /* Updated to match the color palette */
   color: white;
   border-radius: 8px 8px 0 0;
 }
 
 .tabButton:hover {
-  background-color: rgba(0, 112, 243, 0.1);
+  background-color: #CC2B52; /* Updated to match the color palette */
 }
 
 /* Tab Content */
@@ -141,14 +139,14 @@
 }
 
 .inputGroup input:focus {
-  border-color: #0070f3;
-  box-shadow: 0 0 8px rgba(0, 112, 243, 0.3);
+  border-color: #AF1740; /* Updated to match the color palette */
+  box-shadow: 0 0 8px rgba(175, 23, 64, 0.3); /* Updated to match the color palette */
   outline: none;
 }
 
 .saveButton {
   padding: 0.75rem;
-  background: linear-gradient(135deg, #0070f3, #00c6ff);
+  background: linear-gradient(135deg, #AF1740, #CC2B52); /* Updated to match the color palette */
   color: white;
   border: none;
   border-radius: 8px;
@@ -158,7 +156,7 @@
 }
 
 .saveButton:hover {
-  background: linear-gradient(135deg, #005bb5, #0099cc);
+  background: linear-gradient(135deg, #740938, #AF1740); /* Updated to match the color palette */
   transform: translateY(-2px);
 }
 
@@ -203,24 +201,25 @@
 }
 
 .confirmButton {
-  background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+  background: linear-gradient(135deg, #AF1740, #CC2B52); /* Updated to match the color palette */
   color: white;
 }
 
 .confirmButton:hover {
-  background: linear-gradient(135deg, #c0392b, #ff4d4d);
+  background: linear-gradient(135deg, #740938, #AF1740); /* Updated to match the color palette */
   transform: translateY(-2px);
 }
 
 .cancelButton {
-  background: linear-gradient(135deg, #0070f3, #00c6ff);
+  background: linear-gradient(135deg, #DE7C7D, #CC2B52); /* Updated to match the color palette */
   color: white;
 }
 
 .cancelButton:hover {
-  background: linear-gradient(135deg, #005bb5, #0099cc);
+  background: linear-gradient(135deg, #CC2B52, #AF1740); /* Updated to match the color palette */
   transform: translateY(-2px);
 }
+
 /* Profile Image and Placeholder */
 .profileContainer {
   position: relative;
@@ -232,19 +231,19 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #0070f3;
+  border: 3px solid #AF1740; /* Updated to match the color palette */
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .profileImage:hover {
   transform: scale(1.05);
-  border-color: #005bb5;
+  border-color: #740938; /* Updated to match the color palette */
 }
 
 .profilePlaceholder {
   width: 100px;
   height: 100px;
-  background-color: #0070f3;
+  background-color: #AF1740; /* Updated to match the color palette */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -263,7 +262,7 @@
 .uploadButton {
   margin-top: 0.5rem;
   cursor: pointer;
-  background-color: #0070f3;
+  background-color: #AF1740; /* Updated to match the color palette */
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -273,7 +272,7 @@
 }
 
 .uploadButton:hover {
-  background-color: #005bb5;
+  background-color: #740938; /* Updated to match the color palette */
   transform: translateY(-2px);
 }
 
@@ -303,15 +302,15 @@
 /* Grid Items (Recipe Cards) */
 .gridContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Increased card size */
+  gap: 1.5rem;
 }
 
 .gridItem {
   background-color: white;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
+  border-radius: 12px;
+  padding: 1.5rem;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -324,14 +323,14 @@
 
 .recipeImage {
   width: 100%;
-  height: 120px;
+  height: 150px; /* Increased image height */
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .recipeTitle {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #333;
   margin: 0;

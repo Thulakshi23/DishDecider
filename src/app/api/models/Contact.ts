@@ -1,21 +1,21 @@
-// src/app/models/contactModel.ts
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
-// Define an interface for the contact document
-export interface IContact extends Document {
+interface IContact extends Document {
   name: string;
   email: string;
   phone: string;
+  message: string;
+  createdAt: Date;
 }
 
-// Create the contact schema
-const contactSchema: Schema = new Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  phone: { type: String, required: true },
-});
+const ContactSchema = new Schema<IContact>(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: true },
+    message: { type: String, required: true },
+  },
+  { timestamps: true }
+);
 
-// Create the contact model
-const Contact = mongoose.models.ContactDetails || mongoose.model<IContact>('ContactDetails', contactSchema);
-
-export default Contact;
+export default mongoose.models.Contact || mongoose.model<IContact>("Contact", ContactSchema);

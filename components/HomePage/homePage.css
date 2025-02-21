@@ -6,8 +6,7 @@
   min-height: 100vh; /* Set a minimum height to cover the viewport */
   padding: 20px; /* Add some padding for spacing */
   color: black; /* Text color */
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  overflow: hidden; /* Prevent overflow issues */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-color: #262626; /* Adjust the rgba value for desired opacity and color */
 
 }
@@ -44,6 +43,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   padding: 20px;
   flex: 0.5;
+  
 }
 
 /* Styling for when no ingredients are selected */
@@ -66,26 +66,18 @@
 }
 
 .dropdown-btn {
-  background-color: #007bff;
+  background-color: #CC2B52;
   color: white;
   margin-bottom: 20px;
 }
 
-.dropdown-btn:hover {
-  background-color: #0056b3;
-}
-
 .find-recipes-btn {
-  background-color: #28a745;
+  background-color:#CC2B52;
   color: white;
 }
 
-.find-recipes-btn:hover {
-  background-color: #1e7e34;
-}
-
 .clear-btn {
-  background-color: #dc3545;
+  background-color: #AF1740;
   color: rgb(245, 238, 238);
 }
 
@@ -115,12 +107,15 @@
 
 .ingredient-grid li {
   display: flex;
-  align-items: center; /* Center items vertically */
-  background: #f9f9f9; /* Light background for the items */
-  padding: 10px; /* Padding for each item */
-  border-radius: 5px; /* Rounded corners */
-  border: 1px solid #ddd; /* Light border */
-  height: 0.8cm; /* Set height for each ingredient box */
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  height: 0.8cm;
+  cursor: pointer; /* Makes it clear it's clickable */
+  transition: background-color 0.3s ease-in-out, transform 0.2s; /* Added transform transition */
+  
 }
 
 /* Button container */

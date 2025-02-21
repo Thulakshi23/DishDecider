@@ -161,7 +161,7 @@ const Register: React.FC = () => {
         </form>
         <p className="login-prompt">
           Already have an account?{" "}
-          <span className="back-to-login" onClick={handleBackToLogin}>
+          <span className="button" onClick={handleBackToLogin}>
             Back to Login
           </span>
         </p>

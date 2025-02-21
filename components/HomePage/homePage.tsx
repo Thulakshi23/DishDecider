@@ -7,9 +7,16 @@ import './homePage.css';
 const HomePage: React.FC = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [showAdditionalIngredients, setShowAdditionalIngredients] = useState(false);
-  const [recipes, setRecipes] = useState<any[]>([]);
+  interface Recipe {
+    title: string;
+    ingredients: string[];
+    instructions: string;
+    image?: string;
+  }
+
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading] = useState<boolean>(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
@@ -77,7 +84,7 @@ const HomePage: React.FC = () => {
           transition={{ duration: 0.5 }} 
         >
           <h2>
-            What's in Your Fridge? <span role="img" aria-label="thinking emoji">🤔</span>
+            What&apos;s in Your Fridge? <span role="img" aria-label="thinking emoji">🤔</span>
           </h2>
           
           <button
@@ -93,16 +100,12 @@ const HomePage: React.FC = () => {
             <ul className="ingredient-grid">
               {['Jackfruit', 
                   'Eggplant', 
-                  'Pumpkin', 
-                  'Drumstick', 
-                  'Okra', 
+                  'Pumpkin',  
                   'Carrots', 
                   'Beetroots', 
                   'Spinach', 
-                  'Broccoli', 
-                  'Zucchini', 
-                  'Tomato', 
-                  'Cucumbers', 
+                  'Broccoli',  
+                  'Tomato',  
                   'Onions', 
                   'Garlic', 
                   'Mushrooms'].map((veg) => (

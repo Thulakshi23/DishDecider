@@ -24,7 +24,6 @@ const UserPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [savedRecipes, setSavedRecipes] = useState<{ name: string; image: string }[]>([]);
 
-  const router = useRouter();
 
   useEffect(() => {
     const fetchUserData = async () => {

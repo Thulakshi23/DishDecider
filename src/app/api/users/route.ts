@@ -10,9 +10,9 @@ export async function GET() {
       "userName email profilePic createdAt"
     );
     return NextResponse.json(users, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
-      { message: "Failed to fetch users", error: error.message },
+      { message: "Failed to fetch users", error: (error as Error).message },
       { status: 500 }
     );
   }
@@ -43,9 +43,9 @@ export async function PUT(request: Request) {
       { message: "User updated", user: updatedUser },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
-      { message: "Update failed", error: error.message },
+      { message: "Update failed", error: (error as Error).message },
       { status: 500 }
     );
   }
@@ -74,9 +74,9 @@ export async function DELETE(request: Request) {
       { message: "User deleted", user: deletedUser },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
-      { message: "Deletion failed", error: error.message },
+      { message: "Deletion failed", error: (error as Error).message },
       { status: 500 }
     );
   }

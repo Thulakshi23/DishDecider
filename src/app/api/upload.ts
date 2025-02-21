@@ -6,7 +6,9 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export default async function handler(req: any, res: any) {
+import { NextApiRequest, NextApiResponse } from 'next';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { image } = req.body;
 
@@ -15,8 +17,8 @@ export default async function handler(req: any, res: any) {
         folder: 'user_profiles',
       });
       res.status(200).json({ url: result.secure_url });
-    } catch (error) {
-      res.status(500).json({ error: 'Image upload failed' });
+    } catch (error: any) {
+      res.status(500).json({ error: 'Image upload failed', details: error.message });
     }
   } else {
     res.status(405).json({ message: 'Method not allowed' });

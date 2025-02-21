@@ -4,8 +4,8 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #2d2d2d, #141414); /* Gradient background */
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold',;
+  background: #262626; /* Solid background color */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color: #f8f9fa;
 }
 
@@ -23,7 +23,7 @@
   margin-bottom: 25px;
   font-size: 2.5rem;
   font-weight: bold;
-  color: #ffc107; /* Highlighted heading color */
+  color:white; /* Updated heading color */
 }
 
 .form {
@@ -48,13 +48,13 @@
 }
 
 .input:focus {
-  border-color: #ffc107;
-  box-shadow: 0 0 5px #ffc107;
+  border-color: #CC2B52; /* Updated focus border color */
+  box-shadow: 0 0 5px #CC2B52; /* Updated focus shadow color */
 }
 
 .button {
   padding: 12px;
-  background-color: #007bff;
+  background-color: #AF1740; /* Updated button color */
   color: #f8f9fa;
   border: none;
   border-radius: 6px;
@@ -65,13 +65,13 @@
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #740938; /* Updated hover button color */
 }
 
 .forgot-password {
   margin: 10px 0;
   font-size: 0.9rem;
-  color: #ffc107;
+  color: #CC2B52; /* Updated link color */
   text-decoration: none;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .register-button {
-  color: #ffc107;
+  color: #CC2B52; /* Updated link color */
   font-weight: bold;
   cursor: pointer;
   text-decoration: underline;
@@ -104,6 +104,5 @@
 }
 
 .toggle-visibility:hover {
-  color: black;
+  color: #DE7C7D; /* Updated hover color */
 }
-

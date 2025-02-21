@@ -34,7 +34,7 @@ const ContactUs: React.FC = () => {
       } else {
         toast.error("Failed to send message. Please try again later. ❌");
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred. Please try again later. ");
     }
   };

@@ -66,9 +66,13 @@ const Admin = () => {
       
       const paymentsResponse = await axios.get<FetchPaymentsResponse>('/api/payments'); // Fetch payments
       setPayments(paymentsResponse.data.payments);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Fetch error:", err); // Log the error for debugging
-      setError(err.response?.data?.error || 'Error fetching data'); // Show detailed error if available
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.error || 'Error fetching data'); // Show detailed error if available
+      } else {
+        setError('Error fetching data');
+      }
     } finally {
       setLoading(false); // End loading
     }
@@ -99,9 +103,13 @@ const Admin = () => {
       if (response.status !== 200) {
         setError('Failed to delete user.'); // Show error if not successful
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Delete error:", err); // Log the error for debugging
-      setError(err.response?.data?.error || 'Error deleting user'); // Show error message
+      if (axios.isAxiosError(err)) {
+      setError(err.response?.data?.error || 'Error deleting user'); // Show detailed error if available
+      } else {
+      setError('Error deleting user');
+      }
       // Re-fetch users to restore optimistic update
       fetchData();
     }
@@ -135,16 +143,21 @@ const Admin = () => {
     setPayments((prevPayments) => prevPayments.filter(payment => payment._id !== id));
 
     try {
-      const response = await axios.delete(`/api/payments?id=${id}`); // Adjust the API path for deleting payment
-      if (response.status !== 200) {
-        setError('Failed to delete payment.'); // Show error if not successful
+      if (!id) {
+        setError("Invalid payment ID");
+        return;
       }
-    } catch (err) {
-      console.error("Delete error:", err); // Log the error for debugging
-      setError('Error deleting payment');
-      // Re-fetch payments to restore optimistic update
-      fetchData();
+      const response = await axios.delete(`/api/payments?id=${id}`);
+    
+      if (response.status !== 200) {
+        setError("Failed to delete payment");
+      }
+    } catch (err: any) {
+      console.error("Delete error:", err.response?.data || err.message);
+      setError(err.response?.data?.error || "Error deleting payment");
+      fetchData(); // Re-fetch payments
     }
+    
   };
 
   if (loading) return <p className={styles.loading}>Loading...</p>;
@@ -184,7 +197,7 @@ const Admin = () => {
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
-                {/* <th>Phone Number</th> */}
+                <th>Phone Number</th> {/* Added Phone Number column */}
                 <th>Actions</th>
               </tr>
             </thead>
@@ -196,7 +209,7 @@ const Admin = () => {
                     <td>{user.firstName}</td>
                     <td>{user.lastName}</td>
                     <td>{user.email}</td>
-                    {/* <td>{user.phoneNumber}</td> */}
+                    <td>{user.phoneNumber}</td> {/* Display Phone Number */}
                     <td>
                       <button onClick={() => handleDeleteUser(user._id)} className={styles.deleteButton}>
                         Delete

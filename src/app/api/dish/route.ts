@@ -8,7 +8,7 @@ import DishModel from '../models/Dish'; // Assuming you have a Dish model
 export async function POST(req: NextRequest) {
   try {
     // Parse the request body
-    const { name, description, price, category, imageUrl } = await req.json();
+    const { name, description, category, imageUrl } = await req.json();
 
     // Connect to the database
     await dbConnect();

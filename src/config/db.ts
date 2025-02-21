@@ -12,7 +12,11 @@ import mongoose from "mongoose";const MONGODB_URI = process.env.MONGODB_URI;cons
       dbName: '',  // Ensure the database name is correct
       bufferCommands: true, // Buffer commands while connecting
     });    console.log("MongoDB connected successfully");
-  } catch (error: any) {
-    console.log("MongoDB connection error:", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log("MongoDB connection error:", error.message);
+    } else {
+      console.log("MongoDB connection error:", error);
+    }
     throw new Error("MongoDB connection failed");
   }};export default dbConnect;

@@ -17,7 +17,7 @@ const recipes = [
   
   {
     title: "Eggplant & Tomato Curry",
-    ingredients: ["Eggplant", "Tomato", "Onion"],
+    ingredients: ["Eggplant", "Tomato", "Onions"],
     instructions: "Heat oil in a pan and sauté onions until golden. Add eggplant and cook for 5 minutes. Stir in tomatoes, cover, and cook for another 10 minutes until soft. Serve hot with rice or bread.",
     image: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422937/Eggplant_Tomato_Curry_wvym2i.jpg",
   },
@@ -33,6 +33,9 @@ const recipes = [
     instructions: "Heat oil in a pan and sauté garlic until fragrant. Add chicken and cook until golden brown. Add broccoli and stir-fry for 5 minutes. Serve warm with rice or bread.",
     image: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422958/Garlic_Butter_Chicken_with_Broccoli_junsvb.jpg",
   },
+  
+
+
 ];
 
 export async function POST(req: Request) {
@@ -53,7 +56,7 @@ export async function POST(req: Request) {
         ? matchedRecipes
         : [{ title: "No recipes found", ingredients: [], instructions: "Try selecting different ingredients.", image: "" }]
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to fetch recipes" }, { status: 500 });
   }
 }
