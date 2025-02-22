@@ -1,8 +1,6 @@
 /* homePage.css */
 
 /* Background and page styling */
-
-
 #home-page {
   position: relative; /* Establish positioning context for the pseudo-element */
   min-height: 100vh; /* Set a minimum height to cover the viewport */
@@ -10,7 +8,6 @@
   color: black; /* Text color */
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-color: #262626; /* Adjust the rgba value for desired opacity and color */
-
 }
 
 /* Layout container */
@@ -45,7 +42,6 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   padding: 20px;
   flex: 0.5;
-  
 }
 
 /* Styling for when no ingredients are selected */
@@ -74,7 +70,7 @@
 }
 
 .find-recipes-btn {
-  background-color:#CC2B52;
+  background-color: #CC2B52;
   color: white;
 }
 
@@ -117,7 +113,6 @@
   height: 0.8cm;
   cursor: pointer; /* Makes it clear it's clickable */
   transition: background-color 0.3s ease-in-out, transform 0.2s; /* Added transform transition */
-  
 }
 
 /* Button container */
@@ -129,6 +124,20 @@
 
 /* Media query for responsive button layout */
 @media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .box,
+  .your-ingredients {
+    flex: 1;
+    margin-bottom: 20px;
+  }
+
+  .ingredient-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+  }
+
   .button-container {
     flex-direction: column;
     align-items: stretch;
@@ -137,6 +146,22 @@
   .button-container button {
     margin-bottom: 10px;
     width: 100%;
+  }
+
+  /* Adjust dropdown button size */
+  .dropdown-btn,
+  .find-recipes-btn,
+  .clear-btn {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+
+  h2 {
+    font-size: 1.8rem; /* Reduce heading size for small screens */
+  }
+
+  h3 {
+    font-size: 1.3rem; /* Smaller subheading size */
   }
 }
 
@@ -162,7 +187,7 @@ h3 {
   line-height: 1.2; /* Adjust line height for better spacing */
 }
 
-.recipes-section{
+.recipes-section {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);

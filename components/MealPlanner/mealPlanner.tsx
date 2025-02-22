@@ -3,6 +3,30 @@
 import React, { useState, useEffect } from "react";
 import "./mealPlanner.css";
 
+// Move sampleDishes outside the component to avoid infinite re-renders
+const sampleDishes = [
+  {
+    imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422958/Garlic_Butter_Chicken_with_Broccoli_junsvb.jpg",
+    name: "Garlic Butter Chicken",
+  },
+  {
+    imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422937/Eggplant_Tomato_Curry_wvym2i.jpg",
+    name: "Eggplant Tomato curry",
+  },
+  {
+    imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739423000/Vegetable_Stir-Fry_easgop.jpg",
+    name: "Vegetable Stir-Fry",
+  },
+  {
+    imageUrl:"https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622729/Tomato-Rice_v4v8mp.webp",
+    name: "Tomato rice",
+  },
+  {
+    imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422978/Jackfruit_Spinach_Stir-Fry_vocmoa.jpg",
+    name: "Jackfruit & Spinach Stir-Fry",
+  },
+];
+
 const MealPlanner: React.FC = () => {
   const [dishes, setDishes] = useState<{ imageUrl: string; name: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -10,29 +34,6 @@ const MealPlanner: React.FC = () => {
 
   const backgroundImageUrl =
     "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737558632/samples/food/fish-vegetables.jpg";
-
-  const sampleDishes = [
-    {
-      imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422958/Garlic_Butter_Chicken_with_Broccoli_junsvb.jpg",
-      name: "Garlic Butter Chicken",
-    },
-    {
-      imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422937/Eggplant_Tomato_Curry_wvym2i.jpg",
-      name: "Eggplant Tomato curry",
-    },
-    {
-      imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739423000/Vegetable_Stir-Fry_easgop.jpg",
-      name: "Vegetable Stir-Fry",
-    },
-    {
-      imageUrl:"https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622729/Tomato-Rice_v4v8mp.webp",
-      name: "Tomato rice",
-    },
-    {
-      imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422978/Jackfruit_Spinach_Stir-Fry_vocmoa.jpg",
-      name: "Jackfruit & Spinach Stir-Fry",
-    },
-  ];
 
   const [selectedMeals, setSelectedMeals] = useState<Record<string, number[]>>({
     Monday: [],
@@ -47,12 +48,12 @@ const MealPlanner: React.FC = () => {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await fetch("");
+        const response = await fetch(""); // API URL needs to be set
         if (!response.ok) throw new Error("Failed to fetch dishes");
         const data = await response.json();
         setDishes(data.length > 0 ? data : sampleDishes); // Use sample dishes if API returns empty
       } catch (err) {
-        setDishes(sampleDishes); // Use sample dishes on error
+        setDishes(sampleDishes); // Use sample dishes if there's an error
         setError("");
         console.error(err);
       } finally {
@@ -61,7 +62,7 @@ const MealPlanner: React.FC = () => {
     };
 
     fetchDishes();
-  }, []);
+  }, [sampleDishes,]); // No dependency on `sampleDishes` anymore, only runs once when component mounts
 
   const handleMealClick = (day: string, index: number) => {
     setSelectedMeals((prevSelected) => ({
@@ -80,7 +81,7 @@ const MealPlanner: React.FC = () => {
         body: JSON.stringify({ meals: selectedMeals }),
       });
 
-      if (!response.ok) throw new Error("Failed to save mea.");
+      if (!response.ok) throw new Error("Failed to save meals.");
 
       const data = await response.json();
       console.log("Saved meals:", data);

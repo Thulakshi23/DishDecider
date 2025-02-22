@@ -7,7 +7,7 @@
   background-color: #740938; /* Dark blue-gray with transparency */
   backdrop-filter: blur(10px); /* Adds a blur effect to the background */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
   position: relative; /* Make navbar sticky */
   top: 0; /* Stick to the top */
   z-index: 1000; /* Ensure it stays above other content */
@@ -42,10 +42,10 @@
   text-decoration: underline; /* Adds an underline effect */
   text-underline-offset: 4px; /* Creates a slight gap between text and underline */
   text-decoration-thickness: 2px; /* Makes the underline a bit thicker */
-  color: #CC2B52; /* Keep text white */
   transform: translateY(-2px); /* Slight lift effect */
   transition: all 0.3s ease-in-out; /* Smooth transition effect */
 }
+
 
 
 
@@ -116,4 +116,55 @@
 
 .logout-button:active {
   transform: scale(0.95); /* Slight shrink on click */
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column; /* Stack items vertically */
+    padding: 10px 20px; /* Adjust padding */
+  }
+
+  .nav-links {
+    flex-direction: column; /* Stack links vertically */
+    gap: 20px; /* Adjust spacing between links */
+  }
+
+  .nav-link {
+    font-size: 1rem; /* Reduce font size for smaller screens */
+  }
+
+  .login-link {
+    padding: 8px 20px; /* Adjust padding for smaller screens */
+    font-size: 1rem; /* Reduce font size */
+  }
+
+  .profile-icon {
+    width: 35px; /* Slightly smaller icon */
+    height: 35px; /* Slightly smaller icon */
+  }
+
+  .logout-button {
+    font-size: 1rem; /* Reduce font size */
+    padding: 8px 10px; /* Adjust padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-link {
+    font-size: 0.9rem; /* Further reduce font size */
+  }
+
+  .login-link {
+    padding: 6px 15px; /* Adjust padding */
+  }
+
+  .profile-icon {
+    width: 30px; /* Further reduce icon size */
+    height: 30px; /* Further reduce icon size */
+  }
+
+  .logout-button {
+    font-size: 0.9rem; /* Further reduce font size */
+    padding: 6px 10px; /* Adjust padding */
+  }
 }

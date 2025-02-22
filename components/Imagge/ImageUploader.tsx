@@ -4,6 +4,7 @@
 // src/app/components/ImageUploader.tsx
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 const ImageUploader = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -47,7 +48,7 @@ const ImageUploader = () => {
   return (
     <div>
       <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload Image</button>
+      {imageUrl && <Image src={imageUrl} alt="Uploaded" layout="responsive" width={700} height={475} style={{ width: '100%', marginTop: '10px' }} />}
       {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '100%', marginTop: '10px' }} />}
     </div>
   );
