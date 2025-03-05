@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import "./mealPlanner.css";
 
-// Move sampleDishes outside the component to avoid infinite re-renders
 const sampleDishes = [
   {
     imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422958/Garlic_Butter_Chicken_with_Broccoli_junsvb.jpg",
@@ -11,21 +10,23 @@ const sampleDishes = [
   },
   {
     imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422937/Eggplant_Tomato_Curry_wvym2i.jpg",
-    name: "Eggplant Tomato curry",
+    name: "Eggplant Tomato Curry",
   },
   {
     imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739423000/Vegetable_Stir-Fry_easgop.jpg",
     name: "Vegetable Stir-Fry",
   },
   {
-    imageUrl:"https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622729/Tomato-Rice_v4v8mp.webp",
-    name: "Tomato rice",
+    imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737622729/Tomato-Rice_v4v8mp.webp",
+    name: "Tomato Rice",
   },
   {
     imageUrl: "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1739422978/Jackfruit_Spinach_Stir-Fry_vocmoa.jpg",
     name: "Jackfruit & Spinach Stir-Fry",
   },
 ];
+
+const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 const MealPlanner: React.FC = () => {
   const [dishes, setDishes] = useState<{ imageUrl: string; name: string }[]>([]);
@@ -35,15 +36,18 @@ const MealPlanner: React.FC = () => {
   const backgroundImageUrl =
     "https://res.cloudinary.com/dgvx2zkcb/image/upload/v1737558632/samples/food/fish-vegetables.jpg";
 
-  const [selectedMeals, setSelectedMeals] = useState<Record<string, number[]>>({
-    Monday: [],
-    Tuesday: [],
-    Wednesday: [],
-    Thursday: [],
-    Friday: [],
-    Saturday: [],
-    Sunday: [],
-  });
+  const [selectedMeals, setSelectedMeals] = useState<{
+    [day: string]: {
+      breakfast: number[];
+      lunch: number[];
+      dinner: number[];
+    };
+  }>(
+    daysOfWeek.reduce((acc, day) => {
+      acc[day] = { breakfast: [], lunch: [], dinner: [] };
+      return acc;
+    }, {} as { [day: string]: { breakfast: number[]; lunch: number[]; dinner: number[] } })
+  );
 
   useEffect(() => {
     const fetchDishes = async () => {
@@ -62,14 +66,17 @@ const MealPlanner: React.FC = () => {
     };
 
     fetchDishes();
-  }, [sampleDishes,]); // No dependency on `sampleDishes` anymore, only runs once when component mounts
+  }, []);
 
-  const handleMealClick = (day: string, index: number) => {
+  const handleMealClick = (day: string, mealType: "breakfast" | "lunch" | "dinner", index: number) => {
     setSelectedMeals((prevSelected) => ({
       ...prevSelected,
-      [day]: prevSelected[day].includes(index)
-        ? prevSelected[day].filter((mealIndex) => mealIndex !== index)
-        : [...prevSelected[day], index],
+      [day]: {
+        ...prevSelected[day],
+        [mealType]: prevSelected[day][mealType].includes(index)
+          ? prevSelected[day][mealType].filter((mealIndex) => mealIndex !== index)
+          : [...prevSelected[day][mealType], index],
+      },
     }));
   };
 
@@ -93,15 +100,12 @@ const MealPlanner: React.FC = () => {
   };
 
   const handleCancel = () => {
-    setSelectedMeals({
-      Monday: [],
-      Tuesday: [],
-      Wednesday: [],
-      Thursday: [],
-      Friday: [],
-      Saturday: [],
-      Sunday: [],
-    });
+    setSelectedMeals(
+      daysOfWeek.reduce((acc, day) => {
+        acc[day] = { breakfast: [], lunch: [], dinner: [] };
+        return acc;
+      }, {} as { [day: string]: { breakfast: number[]; lunch: number[]; dinner: number[] } })
+    );
   };
 
   return (
@@ -116,24 +120,61 @@ const MealPlanner: React.FC = () => {
           {loading ? (
             <p>Loading dishes...</p>
           ) : (
-            Object.keys(selectedMeals).map((day) => (
-              <div key={day} className="day-section">
+            daysOfWeek.map((day) => (
+              <div className="day-section" key={day}>
                 <h2>{day}</h2>
-                <div className="grid-container">
-                  {dishes.map((dish, index) => (
-                    <div
-                      className="grid-item"
-                      key={index}
-                      onClick={() => handleMealClick(day, index)}
-                    >
-                      <img
-                        src={dish.imageUrl}
-                        alt={dish.name}
-                        className={`meal-image ${selectedMeals[day].includes(index) ? "selected" : ""}`}
-                      />
-                      <p className="meal-name">{dish.name}</p>
-                    </div>
-                  ))}
+                <div className="meal-type">
+                  <h3>Breakfast</h3>
+                  <div className="grid-container">
+                    {dishes.map((dish, index) => (
+                      <div
+                        className="grid-item"
+                        key={`${day}-breakfast-${index}`}
+                        onClick={() => handleMealClick(day, "breakfast", index)}
+                      >
+                        <img
+                          src={dish.imageUrl}
+                          alt={dish.name}
+                          className={`meal-image ${selectedMeals[day].breakfast.includes(index) ? "selected" : ""}`}
+                        />
+                        <p className="meal-name">{dish.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <h3>Lunch</h3>
+                  <div className="grid-container">
+                    {dishes.map((dish, index) => (
+                      <div
+                        className="grid-item"
+                        key={`${day}-lunch-${index}`}
+                        onClick={() => handleMealClick(day, "lunch", index)}
+                      >
+                        <img
+                          src={dish.imageUrl}
+                          alt={dish.name}
+                          className={`meal-image ${selectedMeals[day].lunch.includes(index) ? "selected" : ""}`}
+                        />
+                        <p className="meal-name">{dish.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <h3>Dinner</h3>
+                  <div className="grid-container">
+                    {dishes.map((dish, index) => (
+                      <div
+                        className="grid-item"
+                        key={`${day}-dinner-${index}`}
+                        onClick={() => handleMealClick(day, "dinner", index)}
+                      >
+                        <img
+                          src={dish.imageUrl}
+                          alt={dish.name}
+                          className={`meal-image ${selectedMeals[day].dinner.includes(index) ? "selected" : ""}`}
+                        />
+                        <p className="meal-name">{dish.name}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))
@@ -141,17 +182,23 @@ const MealPlanner: React.FC = () => {
         </div>
         <div className="right-panel">
           <div className="preview-box">
-            <h3>Selected Meals</h3>
-            <ul>
-              {Object.entries(selectedMeals).map(([day, meals]) =>
-                meals.length > 0 ? (
-                  <li key={day}>
-                    <strong>{day}:</strong> {meals.map((mealIndex) => dishes[mealIndex]?.name).join(", ")}
-                  </li>
-                ) : null
-              )}
-              {Object.values(selectedMeals).flat().length === 0 && <p>No meals selected</p>}
-            </ul>
+            <h3>Selected Meals for the Week</h3>
+            {daysOfWeek.map((day) => (
+              <div key={day}>
+                <h4>{day}</h4>
+                <ul>
+                  {["breakfast", "lunch", "dinner"].map((mealType) => (
+                    selectedMeals[day][mealType].length > 0 ? (
+                      <li key={`${day}-${mealType}`}>
+                        <strong>{mealType.charAt(0).toUpperCase() + mealType.slice(1)}:</strong>{" "}
+                        {selectedMeals[day][mealType].map((mealIndex: string | number) => dishes[mealIndex]?.name).join(", ")}
+                      </li>
+                    ) : null
+                  ))}
+                  {Object.values(selectedMeals[day]).flat().length === 0 && <p>No meals selected</p>}
+                </ul>
+              </div>
+            ))}
           </div>
           <div className="button-group">
             <button className="cancel-btn" onClick={handleCancel}>
