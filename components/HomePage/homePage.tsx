@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import './homePage.css'; 
 
 const HomePage: React.FC = () => {
@@ -92,7 +93,7 @@ const HomePage: React.FC = () => {
             className="dropdown-btn"
             onClick={toggleAdditionalIngredients}
           >
-            {showAdditionalIngredients ? 'Hide Other Ingredients' : 'Show Other Ingredients'.replace(/'/g, "&apos;")}
+            {showAdditionalIngredients ? 'Hide Other Ingredients'.replace(/'/g, "&apos;") : 'Show Other Ingredients'.replace(/'/g, "&apos;")}
           </button>
 
           <div id="vegetables-section">
@@ -231,10 +232,12 @@ const HomePage: React.FC = () => {
       {recipes.length > 0 ? (
         recipes.map((recipe, index) => (
           <li key={index} className="recipe-item">
-            <img
+            <Image
               src={recipe.image || "/default-recipe.jpg"} // Default image fallback
               alt={recipe.title}
               className="recipe-image"
+              width={500}
+              height={300}
             />
             <div className="recipe-details">
               <h3>{recipe.title}</h3>

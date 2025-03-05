@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./mealPlanner.css";
+import Image from 'next/image';
 
 const sampleDishes = [
   {
@@ -132,10 +133,12 @@ const MealPlanner: React.FC = () => {
                         key={`${day}-breakfast-${index}`}
                         onClick={() => handleMealClick(day, "breakfast", index)}
                       >
-                        <img
+                        <Image
                           src={dish.imageUrl}
                           alt={dish.name}
                           className={`meal-image ${selectedMeals[day].breakfast.includes(index) ? "selected" : ""}`}
+                          width={150} // Adjust width as needed
+                          height={150} // Adjust height as needed
                         />
                         <p className="meal-name">{dish.name}</p>
                       </div>

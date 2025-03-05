@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import styles from "./UserPage.module.css";
 
 // Define the structure of the user data we expect to receive
@@ -22,7 +23,6 @@ const UserPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [savedRecipes, setSavedRecipes] = useState<{ name: string; image: string }[]>([]);
-
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -109,7 +109,7 @@ const UserPage: React.FC = () => {
           {savedRecipes.length > 0 ? (
             savedRecipes.map((recipe, index) => (
               <div key={index} className={styles.gridItem}>
-                <img src={recipe.image} alt={recipe.name} className={styles.recipeImage} />
+                <Image src={recipe.image} alt={recipe.name} className={styles.recipeImage} width={200} height={200} />
                 <p>{recipe.name}</p>
               </div>
             ))
@@ -179,7 +179,7 @@ const UserPage: React.FC = () => {
         <div className={styles.profileContainer}>
           {profilePic ? (
             <div className={styles.profileWrapper}>
-              <img src={profilePic} alt="Profile" className={styles.profileImage} />
+              <Image src={profilePic} alt="Profile" className={styles.profileImage} width={100} height={100} />
               <button className={styles.deleteButton} onClick={() => setIsDeleting(true)}>
                 🗑️
               </button>
