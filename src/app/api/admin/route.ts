@@ -35,8 +35,8 @@ export async function GET() {
 
     // Return combined data
     return NextResponse.json({ users: formattedUsers, dishes: formattedDishes }, { status: 200 });
-  } catch (error: any) {
-    console.error("Error fetching users and dishes:", error.message);
+  } catch (error) {
+    console.error("Error fetching users and dishes:", (error as Error).message);
     return NextResponse.json({ error: "Failed to fetch users and dishes" }, { status: 500 });
   }
 }
@@ -53,8 +53,8 @@ export async function DELETE(req: NextRequest) {
     }
 
     return NextResponse.json({ message: 'User deleted successfully' }, { status: 200 });
-  } catch (error: any) {
-    console.error("Error deleting user:", error.message);
+  } catch (error) {
+    console.error("Error deleting user:", (error as Error).message);
     return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 });
   }
 }

@@ -92,7 +92,7 @@ const HomePage: React.FC = () => {
             className="dropdown-btn"
             onClick={toggleAdditionalIngredients}
           >
-            {showAdditionalIngredients ? 'Hide Other Ingredients' : 'Show Other Ingredients'}
+            {showAdditionalIngredients ? 'Hide Other Ingredients' : 'Show Other Ingredients'.replace(/'/g, "&apos;")}
           </button>
 
           <div id="vegetables-section">
