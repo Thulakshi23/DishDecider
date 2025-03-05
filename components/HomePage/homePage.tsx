@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
           transition={{ duration: 0.5 }} 
         >
           <h2>
-            What's in Your Fridge? <span role="img" aria-label="thinking emoji">🤔</span>
+            What&apos;s in Your Fridge? <span role="img" aria-label="thinking emoji">🤔</span>
           </h2>
           
           <button

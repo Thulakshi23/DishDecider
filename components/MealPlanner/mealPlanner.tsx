@@ -152,10 +152,12 @@ const MealPlanner: React.FC = () => {
                         key={`${day}-lunch-${index}`}
                         onClick={() => handleMealClick(day, "lunch", index)}
                       >
-                        <img
+                        <Image
                           src={dish.imageUrl}
                           alt={dish.name}
                           className={`meal-image ${selectedMeals[day].lunch.includes(index) ? "selected" : ""}`}
+                          width={150} // Adjust width as needed
+                          height={150} // Adjust height as needed
                         />
                         <p className="meal-name">{dish.name}</p>
                       </div>
@@ -169,10 +171,12 @@ const MealPlanner: React.FC = () => {
                         key={`${day}-dinner-${index}`}
                         onClick={() => handleMealClick(day, "dinner", index)}
                       >
-                        <img
+                        <Image
                           src={dish.imageUrl}
                           alt={dish.name}
                           className={`meal-image ${selectedMeals[day].dinner.includes(index) ? "selected" : ""}`}
+                          width={150} // Adjust width as needed
+                          height={150} // Adjust height as needed
                         />
                         <p className="meal-name">{dish.name}</p>
                       </div>
