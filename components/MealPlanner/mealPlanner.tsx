@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import "./mealPlanner.css";
-import Image from 'next/image';
 
 const sampleDishes = [
   {
@@ -133,12 +132,10 @@ const MealPlanner: React.FC = () => {
                         key={`${day}-breakfast-${index}`}
                         onClick={() => handleMealClick(day, "breakfast", index)}
                       >
-                        <Image
+                        <img
                           src={dish.imageUrl}
                           alt={dish.name}
                           className={`meal-image ${selectedMeals[day].breakfast.includes(index) ? "selected" : ""}`}
-                          width={150} // Adjust width as needed
-                          height={150} // Adjust height as needed
                         />
                         <p className="meal-name">{dish.name}</p>
                       </div>
@@ -152,12 +149,10 @@ const MealPlanner: React.FC = () => {
                         key={`${day}-lunch-${index}`}
                         onClick={() => handleMealClick(day, "lunch", index)}
                       >
-                        <Image
+                        <img
                           src={dish.imageUrl}
                           alt={dish.name}
                           className={`meal-image ${selectedMeals[day].lunch.includes(index) ? "selected" : ""}`}
-                          width={150} // Adjust width as needed
-                          height={150} // Adjust height as needed
                         />
                         <p className="meal-name">{dish.name}</p>
                       </div>
@@ -171,12 +166,10 @@ const MealPlanner: React.FC = () => {
                         key={`${day}-dinner-${index}`}
                         onClick={() => handleMealClick(day, "dinner", index)}
                       >
-                        <Image
+                        <img
                           src={dish.imageUrl}
                           alt={dish.name}
                           className={`meal-image ${selectedMeals[day].dinner.includes(index) ? "selected" : ""}`}
-                          width={150} // Adjust width as needed
-                          height={150} // Adjust height as needed
                         />
                         <p className="meal-name">{dish.name}</p>
                       </div>
@@ -191,19 +184,49 @@ const MealPlanner: React.FC = () => {
           <div className="preview-box">
             <h3>Selected Meals for the Week</h3>
             {daysOfWeek.map((day) => (
-              <div key={day}>
+              <div key={day} className="day-preview">
                 <h4>{day}</h4>
-                <ul>
-                  {["breakfast", "lunch", "dinner"].map((mealType) => (
-                    selectedMeals[day][mealType].length > 0 ? (
-                      <li key={`${day}-${mealType}`}>
-                        <strong>{mealType.charAt(0).toUpperCase() + mealType.slice(1)}:</strong>{" "}
-                        {selectedMeals[day][mealType].map((mealIndex: string | number) => dishes[mealIndex]?.name).join(", ")}
-                      </li>
-                    ) : null
-                  ))}
-                  {Object.values(selectedMeals[day]).flat().length === 0 && <p>No meals selected</p>}
-                </ul>
+                <div className="meal-preview">
+                  {selectedMeals[day].breakfast.length > 0 && (
+                    <div className="meal-time">
+                      <strong>Breakfast:</strong>
+                      <ul>
+                        {selectedMeals[day].breakfast.map((mealIndex) => (
+                          <li key={`${day}-breakfast-${mealIndex}`}>
+                            {dishes[mealIndex]?.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {selectedMeals[day].lunch.length > 0 && (
+                    <div className="meal-time">
+                      <strong>Lunch:</strong>
+                      <ul>
+                        {selectedMeals[day].lunch.map((mealIndex) => (
+                          <li key={`${day}-lunch-${mealIndex}`}>
+                            {dishes[mealIndex]?.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {selectedMeals[day].dinner.length > 0 && (
+                    <div className="meal-time">
+                      <strong>Dinner:</strong>
+                      <ul>
+                        {selectedMeals[day].dinner.map((mealIndex) => (
+                          <li key={`${day}-dinner-${mealIndex}`}>
+                            {dishes[mealIndex]?.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {Object.values(selectedMeals[day]).flat().length === 0 && (
+                    <p>No meals selected for {day}</p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
